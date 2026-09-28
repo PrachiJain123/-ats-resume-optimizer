@@ -561,10 +561,6 @@ function renderResults(report, originalText) {
 }
 
 function renderResumePaper(report, originalText) {
-  const lines = originalText.split("\n").map(l => l.trim()).filter(Boolean);
-  const name = lines[0] || "PRAGMATIC CANDIDATE";
-  const contact = lines.length > 1 ? lines[1] : "candidate@email.com | (555) 019-2834 | linkedin.com/in/candidate";
-
   let skillsHtml = "";
   for (const [cat, items] of Object.entries(report.matrix)) {
     if (items.length) {
@@ -572,19 +568,29 @@ function renderResumePaper(report, originalText) {
     }
   }
 
-  let bulletsHtml = "";
-  for (const b of report.bullets) {
-    bulletsHtml += `<li>${b.rewritten}</li>`;
-  }
+  const allBullets = report.bullets || [];
+  const page1Bullets = allBullets.slice(0, 4);
+  const page2Bullets = allBullets.slice(4);
+
+  const page1BulletsHtml = page1Bullets.map(b => `<li>${b.rewritten}</li>`).join("");
+  const page2BulletsHtml = page2Bullets.map(b => `<li>${b.rewritten}</li>`).join("");
 
   const locationAndContact = "Hyderabad, India | +91-6266761271 | prachijain6699@gmail.com";
   const linksLine = `LinkedIn: <a href="https://linkedin.com/in/prachi-jain6584" target="_blank" rel="noopener noreferrer">linkedin.com/in/prachi-jain6584</a> &bull; GitHub: <a href="https://github.com/PrachiJain123" target="_blank" rel="noopener noreferrer">github.com/PrachiJain123</a> &bull; Portfolio: <a href="https://prachijain123.github.io/" target="_blank" rel="noopener noreferrer">https://prachijain123.github.io/</a>`;
   const immediateJoiner = "Immediate Joiner";
   const formattedSummary = report.summary.split("\n").map(s => s.trim()).filter(Boolean).join("<br>");
 
+  const page2ExpHtml = page2Bullets.length > 0 ? `
+    <div class="resume-section-title">Professional Experience (Continued)</div>
+    <ul style="margin-bottom:8px;">
+      ${page2BulletsHtml}
+    </ul>
+  ` : "";
+
   const paper = document.getElementById("resume-paper");
   paper.innerHTML = `
-    <div class="pdf-preview-container">
+    <!-- PAGE 1 OF 2 -->
+    <div class="resume-page page-1">
       <div class="resume-header">
         <div class="resume-name">P R A C H I   J A I N</div>
         <div class="resume-contact-line">${locationAndContact}</div>
@@ -593,27 +599,64 @@ function renderResumePaper(report, originalText) {
       </div>
 
       <div class="resume-section-title">Professional Summary</div>
-      <p style="text-align:left; text-transform:none; white-space:normal; line-height:1.45; color:#374151; margin-bottom:10px;">${formattedSummary}</p>
+      <p style="text-align:left; text-transform:none; white-space:normal; line-height:1.38; color:#374151; margin-bottom:8px;">${formattedSummary}</p>
 
       <div class="resume-section-title">Core Technical Competencies</div>
-      <ul style="list-style:none; padding-left:0; margin-bottom:10px;">
+      <ul style="list-style:none; padding-left:0; margin-bottom:8px;">
         ${skillsHtml}
       </ul>
 
       <div class="resume-section-title">Professional Experience</div>
-      <div style="display:flex; justify-content:space-between; font-weight:700; font-size:13.5px; margin-bottom:2px;">
+      <div style="display:flex; justify-content:space-between; font-weight:700; font-size:12.5px; margin-bottom:2px;">
         <span>Technical Specialist / Software &amp; Data Engineer</span>
         <span>2022 — Present</span>
       </div>
-      <div style="font-size:12.5px; color:#64748b; font-style:italic; margin-bottom:6px;">Enterprise Technology Solutions</div>
-      <ul style="margin-bottom:10px;">
-        ${bulletsHtml}
+      <div style="font-size:11.5px; color:#64748b; font-style:italic; margin-bottom:5px;">Enterprise Technology Solutions</div>
+      <ul style="margin-bottom:6px;">
+        ${page1BulletsHtml}
+      </ul>
+    </div>
+
+    <!-- PAGE 2 OF 2 -->
+    <div class="resume-page page-2">
+      <div class="resume-page-header">
+        <span>P R A C H I   J A I N &mdash; Curriculum Vitae</span>
+        <span>Page 2 of 2</span>
+      </div>
+
+      ${page2ExpHtml}
+
+      <div class="resume-section-title">Key Technical Projects &amp; Implementations</div>
+      <div style="display:flex; justify-content:space-between; font-weight:700; font-size:12px; margin-bottom:2px;">
+        <span>Customer Churn Predictive Analytics Engine</span>
+        <span>Python, Scikit-Learn, Pandas, SQL</span>
+      </div>
+      <ul style="margin-bottom:8px;">
+        <li>Engineered end-to-end predictive machine learning model analyzing 500K+ customer records, improving churn retention intervention accuracy by 35% with interactive KPI tracking dashboards.</li>
+      </ul>
+
+      <div style="display:flex; justify-content:space-between; font-weight:700; font-size:12px; margin-bottom:2px;">
+        <span>Enterprise Real-Time Sales &amp; Revenue Pipeline</span>
+        <span>MySQL, Looker, Apache Airflow, Docker</span>
+      </div>
+      <ul style="margin-bottom:8px;">
+        <li>Architected automated transactional ingestion and ETL pipelines handling 2.5M+ records daily, decreasing reporting latency by 42% and providing instantaneous executive visibility.</li>
       </ul>
 
       <div class="resume-section-title">Education &amp; Credentials</div>
+      <div style="display:flex; justify-content:space-between; font-weight:700; font-size:12px; margin-bottom:2px;">
+        <span>Bachelor of Technology (B.Tech) in Computer Science &amp; Engineering</span>
+        <span>2018 — 2022</span>
+      </div>
+      <div style="font-size:11.5px; color:#64748b; font-style:italic; margin-bottom:4px;">Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV)</div>
+      <ul style="list-style:none; padding-left:0; margin-bottom:8px;">
+        <li><strong>Relevant Coursework:</strong> Distributed Systems, Database Management Systems, Data Structures &amp; Algorithms, Cloud Architecture</li>
+      </ul>
+
+      <div class="resume-section-title">Certifications &amp; Professional Development</div>
       <ul style="list-style:none; padding-left:0; margin-bottom:0;">
-        <li><strong>Bachelor of Technology (B.Tech) in Computer Science &amp; Engineering</strong></li>
-        <li><strong>Relevant Coursework:</strong> Distributed Systems, Database Management Systems, Algorithms, Cloud Architecture</li>
+        <li><strong>Technical Accreditations:</strong> Google Cloud Data Analytics, Enterprise Workflow Automation, Advanced SQL Optimization</li>
+        <li><strong>Methodologies:</strong> Agile/Scrum Sprint Delivery, Google XYZ Impact Framework, Test-Driven Development (TDD)</li>
       </ul>
     </div>
   `;
@@ -622,19 +665,18 @@ function renderResumePaper(report, originalText) {
 // Download Handlers
 function downloadMarkdown() {
   if (!currentReport) return;
-  const paper = document.getElementById("resume-paper");
-  const name = paper.querySelector(".resume-name")?.innerText || "CANDIDATE";
-  const contact = paper.querySelector(".resume-contact")?.innerText || "";
+  const locationAndContact = "Hyderabad, India | +91-6266761271 | prachijain6699@gmail.com";
+  const links = "LinkedIn: https://linkedin.com/in/prachi-jain6584 | GitHub: https://github.com/PrachiJain123 | Portfolio: https://prachijain123.github.io/";
 
-  let md = `# ${name}\n**${contact}**\n\n---\n\n## PROFESSIONAL SUMMARY\n${currentReport.summary}\n\n## CORE TECHNICAL SKILLS\n`;
+  let md = `# P R A C H I   J A I N\n**${locationAndContact}**\n**${links}**\n**Immediate Joiner**\n\n---\n\n## PROFESSIONAL SUMMARY\n${currentReport.summary}\n\n## CORE TECHNICAL COMPETENCIES\n`;
   for (const [cat, items] of Object.entries(currentReport.matrix)) {
     if (items.length) md += `- **${cat}:** ${items.join(", ")}\n`;
   }
-  md += `\n## PROFESSIONAL EXPERIENCE\n### Technical Specialist / Software & Data Engineer\n*Enterprise Technology Solutions | 2022 – Present*\n\n`;
+  md += `\n## PROFESSIONAL EXPERIENCE\n### Technical Specialist / Software & Data Engineer\n*Enterprise Technology Solutions | 2022 — Present*\n\n`;
   for (const b of currentReport.bullets) {
     md += `- ${b.rewritten}\n`;
   }
-  md += `\n## EDUCATION & CREDENTIALS\n- **Bachelor of Technology (B.Tech) in Computer Science & Engineering**\n`;
+  md += `\n## KEY TECHNICAL PROJECTS\n### Customer Churn Predictive Analytics Engine\n*Python, Scikit-Learn, Pandas, SQL*\n- Engineered end-to-end predictive machine learning model analyzing 500K+ customer records, improving churn retention intervention accuracy by 35% with interactive KPI tracking dashboards.\n\n### Enterprise Real-Time Sales & Revenue Pipeline\n*MySQL, Looker, Apache Airflow, Docker*\n- Architected automated transactional ingestion and ETL pipelines handling 2.5M+ records daily, decreasing reporting latency by 42% and providing instantaneous executive visibility.\n\n## EDUCATION & CREDENTIALS\n- **Bachelor of Technology (B.Tech) in Computer Science & Engineering** | Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV) (2018 — 2022)\n- **Relevant Coursework:** Distributed Systems, Database Management Systems, Data Structures & Algorithms, Cloud Architecture\n\n## CERTIFICATIONS & PROFESSIONAL DEVELOPMENT\n- Google Cloud Data Analytics, Enterprise Workflow Automation, Advanced SQL Optimization\n- Agile/Scrum Sprint Delivery, Google XYZ Impact Framework, Test-Driven Development (TDD)\n`;
 
   saveBlob(md, "resume_optimized.md", "text/markdown");
 }
@@ -646,16 +688,29 @@ function downloadHtml() {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ATS Optimized Resume</title>
+<title>P R A C H I   J A I N — ATS Optimized Resume (2-Page A4)</title>
 <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.5; color: #111; padding: 40px; max-width: 800px; margin: 0 auto; }
-  .resume-header { text-align: center; border-bottom: 2px solid #2563eb; padding-bottom: 10px; margin-bottom: 20px; }
-  .resume-name { font-size: 24px; font-weight: bold; letter-spacing: 1px; }
-  .resume-contact { font-size: 13px; color: #555; }
-  .resume-section-title { font-size: 14px; font-weight: bold; text-transform: uppercase; color: #1e3a8a; border-bottom: 1px solid #ccc; padding-bottom: 3px; margin: 15px 0 8px 0; }
-  ul { padding-left: 20px; }
-  li { margin-bottom: 6px; font-size: 13px; }
-  p { font-size: 13px; }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.4; color: #111827; margin: 0; padding: 0; background: #f8fafc; }
+  .resume-page { width: 210mm; height: 297mm; min-height: 297mm; max-height: 297mm; box-sizing: border-box; padding: 15mm 20mm; margin: 20px auto; background: #fff; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
+  .resume-page.page-1 { break-after: page; page-break-after: always; }
+  .resume-page.page-2 { break-after: avoid; page-break-after: avoid; margin-bottom: 0; }
+  .resume-page-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e5e7eb; padding-bottom: 4px; margin-bottom: 8px; font-size: 10.5px; color: #64748b; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+  .resume-header { text-align: left; border-bottom: 3px solid #d96b27; padding-bottom: 5px; margin-bottom: 10px; }
+  .resume-name { font-size: 18px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: #111827; margin-bottom: 3px; }
+  .resume-contact-line, .resume-contact-links { font-size: 11.5px; color: #374151; line-height: 1.35; margin-bottom: 2px; }
+  .resume-contact-links a { color: #1d4ed8; text-decoration: underline; }
+  .resume-immediate-joiner { font-size: 12px; font-weight: 700; color: #111827; margin-top: 2px; }
+  .resume-section-title { font-size: 12.5px; font-weight: 700; text-transform: uppercase; text-align: left; color: #111827; border-bottom: 1px solid #d1d5db; padding-bottom: 2px; margin: 10px 0 5px 0; letter-spacing: 0.5px; }
+  .resume-page p, .resume-page li { font-size: 11.5px; color: #334155; line-height: 1.38; }
+  .resume-page ul { padding-left: 18px; margin-bottom: 6px; }
+  .resume-page li { margin-bottom: 3px; }
+  @media print {
+    @page { size: A4; margin: 0; }
+    body { background: #ffffff !important; margin: 0 !important; padding: 0 !important; }
+    .resume-page { margin: 0 !important; box-shadow: none !important; border: none !important; }
+  }
 </style>
 </head>
 <body>
