@@ -193,14 +193,15 @@ def run_ats_optimization_loop(
     else:
         notes.append(f"ATS match score ({final_score:.1f}%) successfully meets or exceeds target threshold of {target_score:.0f}%.")
 
-    # Generate tailored executive summary incorporating high-value keywords
+    # Generate comprehensive 5-line executive summary incorporating high-value keywords
     top_matched = current_matched_canon[:6]
     summary_tech = ", ".join(top_matched) if top_matched else "advanced software and data systems"
     tailored_summary = (
-        f"Results-driven technical professional with hands-on expertise in {summary_tech}. "
-        f"Proven track record of delivering high-impact solutions using the Google XYZ framework, "
-        f"optimizing system performance, automating data pipelines, and engineering scalable architectures "
-        f"that align directly with enterprise organizational benchmarks."
+        f"Results-driven Data Analytics & Systems Specialist with 2+ years of hands-on expertise in {summary_tech} and end-to-end data automation.\n"
+        f"Proven track record of designing scalable SQL schemas, building production ETL/ELT pipelines, and deploying interactive real-time executive dashboards.\n"
+        f"Experienced across enterprise workflow platforms, optimizing query execution speed, conducting rigorous A/B statistical testing, and automating operational reporting.\n"
+        f"Skilled in applying the Google XYZ framework to quantify engineering impact, eliminate data processing bottlenecks, and deliver actionable strategic intelligence.\n"
+        f"Dedicated to maintaining high data integrity, standardizing organizational metadata, and architecting reliable distributed cloud solutions aligned with enterprise benchmarks."
     )
 
     # Estimate output page count

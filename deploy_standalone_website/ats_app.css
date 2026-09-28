@@ -626,24 +626,46 @@ textarea.input-area:focus {
 }
 
 .resume-header {
-  text-align: center;
-  border-bottom: 2px solid #2563eb;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
+  text-align: left;
+  border-bottom: 3px solid #d96b27;
+  padding-bottom: 8px;
+  margin-bottom: 18px;
 }
 
 .resume-name {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 800;
-  letter-spacing: 1px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  color: #0f172a;
+  color: #111827;
+  margin-bottom: 6px;
+  font-family: inherit;
 }
 
-.resume-contact {
+.resume-contact-line {
   font-size: 13px;
-  color: #475569;
-  margin-top: 4px;
+  color: #374151;
+  line-height: 1.5;
+  margin-bottom: 2px;
+}
+
+.resume-contact-links {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.5;
+  margin-bottom: 2px;
+}
+
+.resume-contact-links a {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.resume-immediate-joiner {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #111827;
+  margin-top: 3px;
 }
 
 .resume-section-title {

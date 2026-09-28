@@ -1,10 +1,10 @@
 """Formatted output generator for ATS Resumes: Markdown, ATS-compliant HTML, and JSON reports.
 
 Enforces strict structural preservation:
-  - Uses original section headers verbatim (never renames them).
-  - Preserves original company names, job titles, dates, locations.
-  - Only replaces experience bullet points with XYZ-rewritten versions.
-  - Renders non-experience sections (education, skills, projects) verbatim.
+ &bull; - Uses original section headers verbatim (never renames them).
+ &bull; - Preserves original company names, job titles, dates, locations.
+ &bull; - Only replaces experience bullet points with XYZ-rewritten versions.
+ &bull; - Renders non-experience sections (education, skills, projects) verbatim.
 """
 
 from __future__ import annotations
@@ -18,361 +18,384 @@ from .parser import ParsedResume, parse_resume_full, parse_resume_structure
 
 
 def format_markdown_resume(
-    report: ATSOptimizationReport,
-    original_resume_text: str
+ &bull;  &bull; report: ATSOptimizationReport,
+ &bull;  &bull; original_resume_text: str
 ) -> str:
-    """Generates a clean, ATS-compliant Markdown resume preserving the original structure.
-    
-    Rules:
-      - Section headers from the original resume are used verbatim.
-      - Company names, job titles, dates, locations are preserved exactly.
-      - Only bullet points under experience sections are replaced.
-      - Non-experience sections are rendered as-is.
-    """
-    parsed = parse_resume_full(original_resume_text)
-    name = parsed.name or "CANDIDATE"
-    contacts = " | ".join(parsed.contact_lines) or ""
+ &bull;  &bull; """Generates a clean, ATS-compliant Markdown resume preserving the original structure.
+ &bull;  &bull; 
+ &bull;  &bull; Rules:
+ &bull;  &bull;  &bull; - Section headers from the original resume are used verbatim.
+ &bull;  &bull;  &bull; - Company names, job titles, dates, locations are preserved exactly.
+ &bull;  &bull;  &bull; - Only bullet points under experience sections are replaced.
+ &bull;  &bull;  &bull; - Non-experience sections are rendered as-is.
+ &bull;  &bull; """
+ &bull;  &bull; parsed = parse_resume_full(original_resume_text)
+ &bull;  &bull; name = "P R A C H I &bull;  J A I N"
+ &bull;  &bull; contacts = "Hyderabad, India | +91-6266761271 | prachijain6699@gmail.com"
+ &bull;  &bull; links = "LinkedIn: [linkedin.com/in/prachi-jain6584](https://linkedin.com/in/prachi-jain6584) &bull; GitHub: [github.com/PrachiJain123](https://github.com/PrachiJain123) &bull; Portfolio: [https://prachijain123.github.io/](https://prachijain123.github.io/)"
 
-    md = []
-    md.append(f"# {name}")
-    if contacts:
-        md.append(f"**{contacts}**\n")
-    md.append("---\n")
+ &bull;  &bull; md = []
+ &bull;  &bull; md.append(f"# {name}")
+ &bull;  &bull; md.append(f"{contacts}")
+ &bull;  &bull; md.append(f"{links}")
+ &bull;  &bull; md.append("**Immediate Joiner**\n")
+ &bull;  &bull; md.append("---\n")
 
-    bullet_idx = 0  # Track which rewritten bullet to use
+ &bull;  &bull; bullet_idx = 0 &bull; # Track which rewritten bullet to use
 
-    for section in parsed.sections:
-        if section.section_type == "preamble":
-            # Lines before first section header (rare)
-            for ln in section.content_lines:
-                if ln.strip():
-                    md.append(ln.strip())
-            md.append("")
-            continue
+ &bull;  &bull; for section in parsed.sections:
+ &bull;  &bull;  &bull;  &bull; if section.section_type == "preamble":
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; # Lines before first section header (rare)
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; for ln in section.content_lines:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if ln.strip():
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; md.append(ln.strip())
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; md.append("")
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; continue
 
-        # Use the ORIGINAL section header — never rename
-        md.append(f"## {section.header}")
+ &bull;  &bull;  &bull;  &bull; # Use the ORIGINAL section header — never rename
+ &bull;  &bull;  &bull;  &bull; md.append(f"## {section.header}")
 
-        if section.section_type == "experience":
-            # Render each experience block with original metadata
-            for exp in parsed.experiences:
-                # Render original role header (title + company + dates)
-                header_parts = []
-                if exp.title:
-                    header_parts.append(f"**{exp.title}**")
-                if exp.company:
-                    header_parts.append(f"*{exp.company}*")
-                if exp.dates:
-                    header_parts.append(f"({exp.dates})")
-                if exp.location:
-                    header_parts.append(f"— {exp.location}")
-                
-                if header_parts:
-                    md.append(f"### {' | '.join(header_parts)}")
-                elif exp.header_line:
-                    md.append(f"### {exp.header_line}")
+ &bull;  &bull;  &bull;  &bull; if section.section_type == "experience":
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; # Render each experience block with original metadata
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; for exp in parsed.experiences:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; # Render original role header (title + company + dates)
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; header_parts = []
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if exp.title:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; header_parts.append(f"**{exp.title}**")
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if exp.company:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; header_parts.append(f"*{exp.company}*")
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if exp.dates:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; header_parts.append(f"({exp.dates})")
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if exp.location:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; header_parts.append(f"— {exp.location}")
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; 
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if header_parts:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; md.append(f"### {' | '.join(header_parts)}")
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; elif exp.header_line:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; md.append(f"### {exp.header_line}")
 
-                md.append("")
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; md.append("")
 
-                # Replace bullets with XYZ-rewritten versions (if available)
-                for _ in exp.bullets:
-                    if bullet_idx < len(report.optimized_bullets):
-                        b = report.optimized_bullets[bullet_idx]
-                        md.append(f"- {b.rewritten}")
-                        if b.keywords_infused:
-                            md.append(f"  *(Keywords infused: {', '.join(b.keywords_infused)})*")
-                        bullet_idx += 1
-                    else:
-                        # Fallback: if we ran out of rewritten bullets, use original
-                        md.append(f"- {exp.bullets[bullet_idx - len(report.optimized_bullets)] if bullet_idx < len(exp.bullets) + len(report.optimized_bullets) else ''}")
-                md.append("")
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; # Replace bullets with XYZ-rewritten versions (if available)
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; for _ in exp.bullets:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if bullet_idx < len(report.optimized_bullets):
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; b = report.optimized_bullets[bullet_idx]
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; md.append(f"- {b.rewritten}")
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if b.keywords_infused:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; md.append(f" &bull; *(Keywords infused: {', '.join(b.keywords_infused)})*")
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; bullet_idx += 1
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; else:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; # Fallback: if we ran out of rewritten bullets, use original
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; md.append(f"- {exp.bullets[bullet_idx - len(report.optimized_bullets)] if bullet_idx < len(exp.bullets) + len(report.optimized_bullets) else ''}")
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; md.append("")
 
-        elif section.section_type == "skills":
-            # Merge original skills with optimized matrix
-            # First render original content
-            for ln in section.content_lines:
-                if ln.strip():
-                    md.append(ln.strip())
-            # Then append any additional skills from the optimization
-            added_skills = False
-            for category, skills in report.optimized_skills_matrix.items():
-                if skills:
-                    # Check if these skills are already mentioned
-                    existing_text = "\n".join(section.content_lines).lower()
-                    new_skills = [s for s in skills if s.lower() not in existing_text]
-                    if new_skills:
-                        if not added_skills:
-                            md.append("")
-                            md.append("**Additional ATS-Optimized Skills:**")
-                            added_skills = True
-                        md.append(f"- **{category}:** {', '.join(new_skills)}")
-            md.append("")
+ &bull;  &bull;  &bull;  &bull; elif section.section_type == "skills":
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; # Merge original skills with optimized matrix
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; # First render original content
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; for ln in section.content_lines:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if ln.strip():
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; md.append(ln.strip())
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; # Then append any additional skills from the optimization
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; added_skills = False
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; for category, skills in report.optimized_skills_matrix.items():
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if skills:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; # Check if these skills are already mentioned
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; existing_text = "\n".join(section.content_lines).lower()
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; new_skills = [s for s in skills if s.lower() not in existing_text]
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if new_skills:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if not added_skills:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; md.append("")
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; md.append("**Additional ATS-Optimized Skills:**")
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; added_skills = True
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; md.append(f"- **{category}:** {', '.join(new_skills)}")
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; md.append("")
 
-        else:
-            # All other sections (education, projects, summary, etc.) — render verbatim
-            for ln in section.content_lines:
-                if ln.strip():
-                    md.append(ln.strip())
-            md.append("")
+ &bull;  &bull;  &bull;  &bull; else:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; # All other sections (education, projects, summary, etc.) — render verbatim
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; for ln in section.content_lines:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if ln.strip():
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; md.append(ln.strip())
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; md.append("")
 
-    return "\n".join(md)
+ &bull;  &bull; return "\n".join(md)
 
 
 def format_html_resume(
-    report: ATSOptimizationReport,
-    original_resume_text: str
+ &bull;  &bull; report: ATSOptimizationReport,
+ &bull;  &bull; original_resume_text: str
 ) -> str:
-    """Generates an ATS-compliant, single-column HTML resume preserving original structure.
-    
-    Rules:
-      - Section headers from the original resume are used verbatim.
-      - Company names, job titles, dates, locations are preserved exactly.
-      - Only bullet points under experience sections are replaced.
-    """
-    parsed = parse_resume_full(original_resume_text)
-    name = escape(parsed.name or "CANDIDATE")
-    contacts = escape(" | ".join(parsed.contact_lines) or "")
+ &bull;  &bull; """Generates an ATS-compliant, single-column HTML resume preserving original structure.
+ &bull;  &bull; 
+ &bull;  &bull; Rules:
+ &bull;  &bull;  &bull; - Section headers from the original resume are used verbatim.
+ &bull;  &bull;  &bull; - Company names, job titles, dates, locations are preserved exactly.
+ &bull;  &bull;  &bull; - Only bullet points under experience sections are replaced.
+ &bull;  &bull; """
+ &bull;  &bull; parsed = parse_resume_full(original_resume_text)
+ &bull;  &bull; name = escape(parsed.name or "CANDIDATE")
+ &bull;  &bull; contacts = escape(" | ".join(parsed.contact_lines) or "")
 
-    bullet_idx = 0
-    sections_html = ""
+ &bull;  &bull; bullet_idx = 0
+ &bull;  &bull; sections_html = ""
 
-    for section in parsed.sections:
-        if section.section_type == "preamble":
-            content = "<br>".join(escape(ln.strip()) for ln in section.content_lines if ln.strip())
-            sections_html += f"<p class=\"summary-text\">{content}</p>\n"
-            continue
+ &bull;  &bull; for section in parsed.sections:
+ &bull;  &bull;  &bull;  &bull; if section.section_type == "preamble":
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; content = "<br>".join(escape(ln.strip()) for ln in section.content_lines if ln.strip())
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; sections_html += f"<p class=\"summary-text\">{content}</p>\n"
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; continue
 
-        # Original header — verbatim
-        header_esc = escape(section.header)
-        sections_html += f"<section>\n<h2>{header_esc}</h2>\n"
+ &bull;  &bull;  &bull;  &bull; # Original header — verbatim
+ &bull;  &bull;  &bull;  &bull; header_esc = escape(section.header)
+ &bull;  &bull;  &bull;  &bull; sections_html += f"<section>\n<h2>{header_esc}</h2>\n"
 
-        if section.section_type == "experience":
-            for exp in parsed.experiences:
-                # Original metadata — verbatim
-                title_esc = escape(exp.title) if exp.title else ""
-                company_esc = escape(exp.company) if exp.company else ""
-                dates_esc = escape(exp.dates) if exp.dates else ""
-                location_esc = escape(exp.location) if exp.location else ""
+ &bull;  &bull;  &bull;  &bull; if section.section_type == "experience":
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; for exp in parsed.experiences:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; # Original metadata — verbatim
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; title_esc = escape(exp.title) if exp.title else ""
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; company_esc = escape(exp.company) if exp.company else ""
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; dates_esc = escape(exp.dates) if exp.dates else ""
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; location_esc = escape(exp.location) if exp.location else ""
 
-                if title_esc or company_esc or dates_esc:
-                    sections_html += "<div class=\"job-header\">\n"
-                    left_parts = [p for p in [title_esc, company_esc] if p]
-                    sections_html += f"<span>{' | '.join(left_parts)}</span>\n"
-                    right_parts = [p for p in [dates_esc, location_esc] if p]
-                    sections_html += f"<span>{' | '.join(right_parts)}</span>\n"
-                    sections_html += "</div>\n"
-                elif exp.header_line:
-                    sections_html += f"<div class=\"job-header\"><span>{escape(exp.header_line)}</span></div>\n"
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if title_esc or company_esc or dates_esc:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; sections_html += "<div class=\"job-header\">\n"
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; left_parts = [p for p in [title_esc, company_esc] if p]
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; sections_html += f"<span>{' | '.join(left_parts)}</span>\n"
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; right_parts = [p for p in [dates_esc, location_esc] if p]
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; sections_html += f"<span>{' | '.join(right_parts)}</span>\n"
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; sections_html += "</div>\n"
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; elif exp.header_line:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; sections_html += f"<div class=\"job-header\"><span>{escape(exp.header_line)}</span></div>\n"
 
-                sections_html += "<ul class=\"experience-list\">\n"
-                for _ in exp.bullets:
-                    if bullet_idx < len(report.optimized_bullets):
-                        b = report.optimized_bullets[bullet_idx]
-                        bullet_esc = escape(b.rewritten)
-                        infused_html = ""
-                        if b.keywords_infused:
-                            infused_badges = " ".join(f'<span class="kw-tag">{escape(k)}</span>' for k in b.keywords_infused)
-                            infused_html = f'<div class="kw-container"><small>Infused Keywords:</small> {infused_badges}</div>'
-                        sections_html += f"<li class=\"bullet-item\"><div class=\"bullet-text\">{bullet_esc}</div>{infused_html}</li>\n"
-                        bullet_idx += 1
-                sections_html += "</ul>\n"
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; sections_html += "<ul class=\"experience-list\">\n"
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; for _ in exp.bullets:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if bullet_idx < len(report.optimized_bullets):
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; b = report.optimized_bullets[bullet_idx]
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; bullet_esc = escape(b.rewritten)
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; infused_html = ""
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if b.keywords_infused:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; infused_badges = " ".join(f'<span class="kw-tag">{escape(k)}</span>' for k in b.keywords_infused)
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; infused_html = f'<div class="kw-container"><small>Infused Keywords:</small> {infused_badges}</div>'
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; sections_html += f"<li class=\"bullet-item\"><div class=\"bullet-text\">{bullet_esc}</div>{infused_html}</li>\n"
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; bullet_idx += 1
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; sections_html += "</ul>\n"
 
-        elif section.section_type == "skills":
-            # Render original skills verbatim
-            sections_html += "<ul class=\"skills-list\">\n"
-            for ln in section.content_lines:
-                stripped = ln.strip()
-                if stripped:
-                    sections_html += f"<li>{escape(stripped)}</li>\n"
-            # Append optimized skills
-            existing_text = "\n".join(section.content_lines).lower()
-            for category, skills in report.optimized_skills_matrix.items():
-                new_skills = [s for s in skills if s.lower() not in existing_text]
-                if new_skills:
-                    cat_esc = escape(category)
-                    skills_esc = escape(", ".join(new_skills))
-                    sections_html += f"<li><strong>{cat_esc} (ATS-Optimized):</strong> {skills_esc}</li>\n"
-            sections_html += "</ul>\n"
+ &bull;  &bull;  &bull;  &bull; elif section.section_type == "skills":
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; # Render original skills verbatim
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; sections_html += "<ul class=\"skills-list\">\n"
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; for ln in section.content_lines:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; stripped = ln.strip()
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if stripped:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; sections_html += f"<li>{escape(stripped)}</li>\n"
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; # Append optimized skills
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; existing_text = "\n".join(section.content_lines).lower()
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; for category, skills in report.optimized_skills_matrix.items():
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; new_skills = [s for s in skills if s.lower() not in existing_text]
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if new_skills:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; cat_esc = escape(category)
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; skills_esc = escape(", ".join(new_skills))
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; sections_html += f"<li><strong>{cat_esc} (ATS-Optimized):</strong> {skills_esc}</li>\n"
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; sections_html += "</ul>\n"
 
-        else:
-            # All other sections — render verbatim
-            for ln in section.content_lines:
-                stripped = ln.strip()
-                if stripped:
-                    is_bullet = stripped.startswith(("-", "*", "•"))
-                    if is_bullet:
-                        clean = stripped.lstrip("-*• ").strip()
-                        sections_html += f"<li>{escape(clean)}</li>\n"
-                    else:
-                        sections_html += f"<p class=\"summary-text\">{escape(stripped)}</p>\n"
+ &bull;  &bull;  &bull;  &bull; else:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; # All other sections — render verbatim
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; for ln in section.content_lines:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; stripped = ln.strip()
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if stripped:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; is_bullet = stripped.startswith(("-", "*", "•"))
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; if is_bullet:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; clean = stripped.lstrip("-*• ").strip()
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; sections_html += f"<li>{escape(clean)}</li>\n"
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; else:
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull;  &bull; sections_html += f"<p class=\"summary-text\">{escape(stripped)}</p>\n"
 
-        sections_html += "</section>\n"
+ &bull;  &bull;  &bull;  &bull; sections_html += "</section>\n"
 
-    html = f"""<!DOCTYPE html>
+ &bull;  &bull; html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{name} — ATS-Optimized Resume</title>
 <style>
-    @page {{
-        margin: 0.6in;
-        size: letter;
-    }}
-    body {{
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        line-height: 1.5;
-        color: #1a1a1a;
-        background-color: #ffffff;
-        margin: 0;
-        padding: 40px;
-    }}
-    .resume-container {{
-        max-width: 800px;
-        margin: 0 auto;
-        background: #fff;
-    }}
-    header {{
-        text-align: center;
-        border-bottom: 2px solid #2563eb;
-        padding-bottom: 12px;
-        margin-bottom: 20px;
-    }}
-    h1 {{
-        font-size: 26px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        margin: 0 0 6px 0;
-        color: #0f172a;
-    }}
-    .contact-info {{
-        font-size: 13px;
-        color: #475569;
-    }}
-    section {{
-        margin-bottom: 18px;
-    }}
-    h2 {{
-        font-size: 15px;
-        text-transform: uppercase;
-        color: #1e3a8a;
-        border-bottom: 1px solid #cbd5e1;
-        padding-bottom: 4px;
-        margin: 16px 0 10px 0;
-        letter-spacing: 0.5px;
-    }}
-    .summary-text {{
-        font-size: 13.5px;
-        color: #334155;
-        text-align: justify;
-    }}
-    ul.skills-list {{
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        font-size: 13px;
-    }}
-    ul.skills-list li {{
-        margin-bottom: 4px;
-    }}
-    .job-header {{
-        display: flex;
-        justify-content: space-between;
-        font-size: 14px;
-        font-weight: bold;
-        color: #0f172a;
-    }}
-    .job-sub {{
-        font-size: 13px;
-        color: #64748b;
-        font-style: italic;
-        margin-bottom: 8px;
-    }}
-    ul.experience-list {{
-        padding-left: 20px;
-        margin: 0;
-    }}
-    .bullet-item {{
-        margin-bottom: 10px;
-        font-size: 13px;
-        color: #1e293b;
-    }}
-    .kw-container {{
-        margin-top: 3px;
-    }}
-    .kw-tag {{
-        display: inline-block;
-        background: #eff6ff;
-        color: #1d4ed8;
-        border: 1px solid #bfdbfe;
-        font-size: 11px;
-        padding: 1px 6px;
-        border-radius: 4px;
-        font-weight: 500;
-        margin-right: 4px;
-    }}
-    @media print {{
-        body {{
-            padding: 0;
-        }}
-        .kw-container {{
-            display: none !important;
-        }}
-    }}
+ &bull;  &bull; @page {{
+ &bull;  &bull;  &bull;  &bull; margin: 0.6in;
+ &bull;  &bull;  &bull;  &bull; size: letter;
+ &bull;  &bull; }}
+ &bull;  &bull; body {{
+ &bull;  &bull;  &bull;  &bull; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+ &bull;  &bull;  &bull;  &bull; line-height: 1.5;
+ &bull;  &bull;  &bull;  &bull; color: #1a1a1a;
+ &bull;  &bull;  &bull;  &bull; background-color: #ffffff;
+ &bull;  &bull;  &bull;  &bull; margin: 0;
+ &bull;  &bull;  &bull;  &bull; padding: 40px;
+ &bull;  &bull; }}
+ &bull;  &bull; .resume-container {{
+ &bull;  &bull;  &bull;  &bull; max-width: 800px;
+ &bull;  &bull;  &bull;  &bull; margin: 0 auto;
+ &bull;  &bull;  &bull;  &bull; background: #fff;
+ &bull;  &bull; }}
+ &bull;  &bull; header {{
+ &bull;  &bull;  &bull;  &bull; text-align: left;
+ &bull;  &bull;  &bull;  &bull; border-bottom: 3px solid #d96b27;
+ &bull;  &bull;  &bull;  &bull; padding-bottom: 8px;
+ &bull;  &bull;  &bull;  &bull; margin-bottom: 18px;
+ &bull;  &bull; }}
+ &bull;  &bull; .resume-name {{
+ &bull;  &bull;  &bull;  &bull; font-size: 20px;
+ &bull;  &bull;  &bull;  &bull; font-weight: 800;
+ &bull;  &bull;  &bull;  &bull; letter-spacing: 3px;
+ &bull;  &bull;  &bull;  &bull; text-transform: uppercase;
+ &bull;  &bull;  &bull;  &bull; color: #111827;
+ &bull;  &bull;  &bull;  &bull; margin-bottom: 6px;
+ &bull;  &bull; }}
+ &bull;  &bull; .resume-contact-line {{
+ &bull;  &bull;  &bull;  &bull; font-size: 13px;
+ &bull;  &bull;  &bull;  &bull; color: #374151;
+ &bull;  &bull;  &bull;  &bull; line-height: 1.5;
+ &bull;  &bull;  &bull;  &bull; margin-bottom: 2px;
+ &bull;  &bull; }}
+ &bull;  &bull; .resume-contact-links {{
+ &bull;  &bull;  &bull;  &bull; font-size: 13px;
+ &bull;  &bull;  &bull;  &bull; color: #374151;
+ &bull;  &bull;  &bull;  &bull; line-height: 1.5;
+ &bull;  &bull;  &bull;  &bull; margin-bottom: 2px;
+ &bull;  &bull; }}
+ &bull;  &bull; .resume-contact-links a {{
+ &bull;  &bull;  &bull;  &bull; color: #1d4ed8;
+ &bull;  &bull;  &bull;  &bull; text-decoration: underline;
+ &bull;  &bull; }}
+ &bull;  &bull; .resume-immediate-joiner {{
+ &bull;  &bull;  &bull;  &bull; font-size: 13.5px;
+ &bull;  &bull;  &bull;  &bull; font-weight: 700;
+ &bull;  &bull;  &bull;  &bull; color: #111827;
+ &bull;  &bull;  &bull;  &bull; margin-top: 3px;
+ &bull;  &bull; }}
+ &bull;  &bull; section {{
+ &bull;  &bull;  &bull;  &bull; margin-bottom: 18px;
+ &bull;  &bull; }}
+ &bull;  &bull; h2 {{
+ &bull;  &bull;  &bull;  &bull; font-size: 15px;
+ &bull;  &bull;  &bull;  &bull; text-transform: uppercase;
+ &bull;  &bull;  &bull;  &bull; color: #1e3a8a;
+ &bull;  &bull;  &bull;  &bull; border-bottom: 1px solid #cbd5e1;
+ &bull;  &bull;  &bull;  &bull; padding-bottom: 4px;
+ &bull;  &bull;  &bull;  &bull; margin: 16px 0 10px 0;
+ &bull;  &bull;  &bull;  &bull; letter-spacing: 0.5px;
+ &bull;  &bull; }}
+ &bull;  &bull; .summary-text {{
+ &bull;  &bull;  &bull;  &bull; font-size: 13.5px;
+ &bull;  &bull;  &bull;  &bull; color: #334155;
+ &bull;  &bull;  &bull;  &bull; text-align: justify;
+ &bull;  &bull; }}
+ &bull;  &bull; ul.skills-list {{
+ &bull;  &bull;  &bull;  &bull; list-style: none;
+ &bull;  &bull;  &bull;  &bull; padding: 0;
+ &bull;  &bull;  &bull;  &bull; margin: 0;
+ &bull;  &bull;  &bull;  &bull; font-size: 13px;
+ &bull;  &bull; }}
+ &bull;  &bull; ul.skills-list li {{
+ &bull;  &bull;  &bull;  &bull; margin-bottom: 4px;
+ &bull;  &bull; }}
+ &bull;  &bull; .job-header {{
+ &bull;  &bull;  &bull;  &bull; display: flex;
+ &bull;  &bull;  &bull;  &bull; justify-content: space-between;
+ &bull;  &bull;  &bull;  &bull; font-size: 14px;
+ &bull;  &bull;  &bull;  &bull; font-weight: bold;
+ &bull;  &bull;  &bull;  &bull; color: #0f172a;
+ &bull;  &bull; }}
+ &bull;  &bull; .job-sub {{
+ &bull;  &bull;  &bull;  &bull; font-size: 13px;
+ &bull;  &bull;  &bull;  &bull; color: #64748b;
+ &bull;  &bull;  &bull;  &bull; font-style: italic;
+ &bull;  &bull;  &bull;  &bull; margin-bottom: 8px;
+ &bull;  &bull; }}
+ &bull;  &bull; ul.experience-list {{
+ &bull;  &bull;  &bull;  &bull; padding-left: 20px;
+ &bull;  &bull;  &bull;  &bull; margin: 0;
+ &bull;  &bull; }}
+ &bull;  &bull; .bullet-item {{
+ &bull;  &bull;  &bull;  &bull; margin-bottom: 10px;
+ &bull;  &bull;  &bull;  &bull; font-size: 13px;
+ &bull;  &bull;  &bull;  &bull; color: #1e293b;
+ &bull;  &bull; }}
+ &bull;  &bull; .kw-container {{
+ &bull;  &bull;  &bull;  &bull; margin-top: 3px;
+ &bull;  &bull; }}
+ &bull;  &bull; .kw-tag {{
+ &bull;  &bull;  &bull;  &bull; display: inline-block;
+ &bull;  &bull;  &bull;  &bull; background: #eff6ff;
+ &bull;  &bull;  &bull;  &bull; color: #1d4ed8;
+ &bull;  &bull;  &bull;  &bull; border: 1px solid #bfdbfe;
+ &bull;  &bull;  &bull;  &bull; font-size: 11px;
+ &bull;  &bull;  &bull;  &bull; padding: 1px 6px;
+ &bull;  &bull;  &bull;  &bull; border-radius: 4px;
+ &bull;  &bull;  &bull;  &bull; font-weight: 500;
+ &bull;  &bull;  &bull;  &bull; margin-right: 4px;
+ &bull;  &bull; }}
+ &bull;  &bull; @media print {{
+ &bull;  &bull;  &bull;  &bull; body {{
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; padding: 0;
+ &bull;  &bull;  &bull;  &bull; }}
+ &bull;  &bull;  &bull;  &bull; .kw-container {{
+ &bull;  &bull;  &bull;  &bull;  &bull;  &bull; display: none !important;
+ &bull;  &bull;  &bull;  &bull; }}
+ &bull;  &bull; }}
 </style>
 </head>
 <body>
 <div class="resume-container">
-    <header>
-        <h1>{name}</h1>
-        <div class="contact-info">{contacts}</div>
-    </header>
+ &bull;  &bull; <header>
+ &bull;  &bull;  &bull;  &bull; <div class="resume-name">P R A C H I &bull;  J A I N</div>
+ &bull;  &bull;  &bull;  &bull; <div class="resume-contact-line">Hyderabad, India | +91-6266761271 | prachijain6699@gmail.com</div>
+ &bull;  &bull;  &bull;  &bull; <div class="resume-contact-links">LinkedIn: <a href="https://linkedin.com/in/prachi-jain6584" target="_blank" rel="noopener noreferrer">linkedin.com/in/prachi-jain6584</a> &bull; GitHub: <a href="https://github.com/PrachiJain123" target="_blank" rel="noopener noreferrer">github.com/PrachiJain123</a> &bull; Portfolio: <a href="https://prachijain123.github.io/" target="_blank" rel="noopener noreferrer">https://prachijain123.github.io/</a></div>
+ &bull;  &bull;  &bull;  &bull; <div class="resume-immediate-joiner">Immediate Joiner</div>
+ &bull;  &bull; </header>
 
-    {sections_html}
+ &bull;  &bull; {sections_html}
 </div>
 </body>
 </html>
 """
-    return html
+ &bull;  &bull; return html
 
 
 def format_xyz_bullet_table_markdown(report: ATSOptimizationReport) -> str:
-    """Creates a Markdown comparison table showing original vs XYZ rewritten bullets."""
-    lines = [
-        "| # | Original Bullet | Google XYZ Rewritten Bullet | Infused Keywords |",
-        "|---|---|---|---|",
-    ]
-    for i, b in enumerate(report.optimized_bullets, 1):
-        orig_clean = b.original.replace("|", "\\|").replace("\n", " ")
-        rewr_clean = b.rewritten.replace("|", "\\|").replace("\n", " ")
-        kws = ", ".join(b.keywords_infused) if b.keywords_infused else "—"
-        lines.append(f"| {i} | {orig_clean} | **{rewr_clean}** | `{kws}` |")
-    return "\n".join(lines)
+ &bull;  &bull; """Creates a Markdown comparison table showing original vs XYZ rewritten bullets."""
+ &bull;  &bull; lines = [
+ &bull;  &bull;  &bull;  &bull; "| # | Original Bullet | Google XYZ Rewritten Bullet | Infused Keywords |",
+ &bull;  &bull;  &bull;  &bull; "|---|---|---|---|",
+ &bull;  &bull; ]
+ &bull;  &bull; for i, b in enumerate(report.optimized_bullets, 1):
+ &bull;  &bull;  &bull;  &bull; orig_clean = b.original.replace("|", "\\|").replace("\n", " ")
+ &bull;  &bull;  &bull;  &bull; rewr_clean = b.rewritten.replace("|", "\\|").replace("\n", " ")
+ &bull;  &bull;  &bull;  &bull; kws = ", ".join(b.keywords_infused) if b.keywords_infused else "—"
+ &bull;  &bull;  &bull;  &bull; lines.append(f"| {i} | {orig_clean} | **{rewr_clean}** | `{kws}` |")
+ &bull;  &bull; return "\n".join(lines)
 
 
 def format_analysis_summary_markdown(report: ATSOptimizationReport) -> str:
-    """Generates an executive analysis markdown report detailing ATS keyword scores and XYZ impact."""
-    status_badge = "✅ PASSED (>= 90%)" if report.passed_90 else "⚠️ IN PROGRESS"
-    
-    md = [
-        f"## 🎯 ATS Keyword Match & Google XYZ Optimization Audit",
-        f"",
-        f"- **Initial Match Score:** `{report.initial_score:.1f}%`",
-        f"- **Post-XYZ Rewriting Score:** `{report.post_rewrite_score:.1f}%`",
-        f"- **Final Optimized Score:** **`{report.final_score:.1f}%`**",
-        f"- **90%+ ATS Target Threshold:** **{status_badge}**",
-        f"- **Optimization Iterations:** `{report.iterations_run}`",
-        f"- **Page Budget:** `{report.original_page_count} page(s)` (estimated output: `{report.estimated_output_pages}`)",
-        f"- **Max Bullet Words:** `{report.max_bullet_words}`",
-        f"",
-        f"### 📊 Keyword Coverage Metrics",
-        f"- **Initial Matched Keywords ({len(report.initial_matched_keywords)}):** {', '.join(f'`{k}`' for k in report.initial_matched_keywords) or 'None'}",
-        f"- **Initial Missing Keywords ({len(report.initial_missing_keywords)}):** {', '.join(f'`{k}`' for k in report.initial_missing_keywords) or 'None'}",
-        f"- **Final Keyword Coverage ({len(report.post_rewrite_matched)}):** {', '.join(f'`{k}`' for k in report.post_rewrite_matched)}",
-        f"",
-        f"### ⚙️ Optimization Audit Trail",
-    ]
-    for note in report.optimization_notes:
-        md.append(f"- {note}")
+ &bull;  &bull; """Generates an executive analysis markdown report detailing ATS keyword scores and XYZ impact."""
+ &bull;  &bull; status_badge = "✅ PASSED (>= 90%)" if report.passed_90 else "⚠️ IN PROGRESS"
+ &bull;  &bull; 
+ &bull;  &bull; md = [
+ &bull;  &bull;  &bull;  &bull; f"## 🎯 ATS Keyword Match & Google XYZ Optimization Audit",
+ &bull;  &bull;  &bull;  &bull; f"",
+ &bull;  &bull;  &bull;  &bull; f"- **Initial Match Score:** `{report.initial_score:.1f}%`",
+ &bull;  &bull;  &bull;  &bull; f"- **Post-XYZ Rewriting Score:** `{report.post_rewrite_score:.1f}%`",
+ &bull;  &bull;  &bull;  &bull; f"- **Final Optimized Score:** **`{report.final_score:.1f}%`**",
+ &bull;  &bull;  &bull;  &bull; f"- **90%+ ATS Target Threshold:** **{status_badge}**",
+ &bull;  &bull;  &bull;  &bull; f"- **Optimization Iterations:** `{report.iterations_run}`",
+ &bull;  &bull;  &bull;  &bull; f"- **Page Budget:** `{report.original_page_count} page(s)` (estimated output: `{report.estimated_output_pages}`)",
+ &bull;  &bull;  &bull;  &bull; f"- **Max Bullet Words:** `{report.max_bullet_words}`",
+ &bull;  &bull;  &bull;  &bull; f"",
+ &bull;  &bull;  &bull;  &bull; f"### 📊 Keyword Coverage Metrics",
+ &bull;  &bull;  &bull;  &bull; f"- **Initial Matched Keywords ({len(report.initial_matched_keywords)}):** {', '.join(f'`{k}`' for k in report.initial_matched_keywords) or 'None'}",
+ &bull;  &bull;  &bull;  &bull; f"- **Initial Missing Keywords ({len(report.initial_missing_keywords)}):** {', '.join(f'`{k}`' for k in report.initial_missing_keywords) or 'None'}",
+ &bull;  &bull;  &bull;  &bull; f"- **Final Keyword Coverage ({len(report.post_rewrite_matched)}):** {', '.join(f'`{k}`' for k in report.post_rewrite_matched)}",
+ &bull;  &bull;  &bull;  &bull; f"",
+ &bull;  &bull;  &bull;  &bull; f"### ⚙️ Optimization Audit Trail",
+ &bull;  &bull; ]
+ &bull;  &bull; for note in report.optimization_notes:
+ &bull;  &bull;  &bull;  &bull; md.append(f"- {note}")
 
-    return "\n".join(md)
+ &bull;  &bull; return "\n".join(md)

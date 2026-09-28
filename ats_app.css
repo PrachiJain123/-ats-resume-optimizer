@@ -626,30 +626,53 @@ textarea.input-area:focus {
 }
 
 .resume-header {
-  text-align: center;
-  border-bottom: 2px solid #2563eb;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
+  text-align: left;
+  border-bottom: 3px solid #d96b27;
+  padding-bottom: 8px;
+  margin-bottom: 18px;
 }
 
 .resume-name {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 800;
-  letter-spacing: 1px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  color: #0f172a;
+  color: #111827;
+  margin-bottom: 6px;
+  font-family: inherit;
 }
 
-.resume-contact {
+.resume-contact-line {
   font-size: 13px;
-  color: #475569;
-  margin-top: 4px;
+  color: #374151;
+  line-height: 1.5;
+  margin-bottom: 2px;
+}
+
+.resume-contact-links {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.5;
+  margin-bottom: 2px;
+}
+
+.resume-contact-links a {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.resume-immediate-joiner {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #111827;
+  margin-top: 3px;
 }
 
 .resume-section-title {
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
+  text-align: left !important;
   color: #1e3a8a;
   border-bottom: 1px solid #cbd5e1;
   padding-bottom: 3px;
@@ -669,6 +692,41 @@ textarea.input-area:focus {
 
 .resume-paper li {
   margin-bottom: 6px;
+}
+
+/* PDF Preview Container — preserves extracted/raw PDF text layout */
+.pdf-preview-container {
+  text-align: left !important;
+  text-transform: none !important;
+  white-space: pre-wrap !important;
+  word-break: break-word;
+  font-size: 13px;
+  color: #334155;
+  line-height: 1.6;
+}
+
+.pdf-preview-container h1,
+.pdf-preview-container h2,
+.pdf-preview-container h3 {
+  text-align: left !important;
+  text-transform: none !important;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 4px;
+  margin: 14px 0 6px 0;
+  font-weight: 700;
+}
+
+.pdf-preview-container ul,
+.pdf-preview-container ol {
+  padding-left: 22px;
+  margin: 6px 0 10px 0;
+  list-style-type: disc;
+}
+
+.pdf-preview-container li {
+  text-align: left !important;
+  text-transform: none !important;
+  margin-bottom: 5px;
 }
 
 /* Print Stylesheet */
