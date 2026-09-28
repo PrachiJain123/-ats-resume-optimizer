@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI ATS Resume Optimizer — Google XYZ Formula & 90+ ATS Match</title>
+  <meta name="description" content="Free online ATS Resume Optimizer. Extract technical keywords, rewrite experience bullets using Google's XYZ formula, and guarantee a 90+ ATS match." />
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- PDF.js CDN for in-browser PDF parsing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  </script>
+
+  <!-- App Stylesheet -->
+  <link rel="stylesheet" href="ats_app.css" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="app-header">
+    <a href="ats-optimizer.html" class="brand">
+      <span class="brand-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+      <span>ATS Optimizer<span style="color:var(--primary); font-size: 0.85rem; margin-left: 4px;">.ai</span></span>
+    </a>
+    <div class="header-actions">
+      <a href="index.html" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.35rem 0.8rem;">
+        <i class="fa-solid fa-user"></i> Portfolio
+      </a>
+      <button id="theme-toggle" class="btn-icon" title="Toggle Theme" aria-label="Toggle theme">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    
+    <!-- Hero Banner -->
+    <section class="hero">
+      <h1>AI Resume Optimizer with <span class="gradient-text">Google XYZ Formula</span></h1>
+      <p>
+        Extract technical keywords from any Job Description, rewrite your experience bullets into quantifiable high-impact achievements, and guarantee a <b>90%+ ATS Keyword Match</b>.
+      </p>
+      <div class="features-banner">
+        <span class="feature-pill"><i class="fa-solid fa-bolt" style="color:#eab308;"></i> Gemini 3.1 Pro Intelligence</span>
+        <span class="feature-pill"><i class="fa-solid fa-calculator" style="color:#3b82f6;"></i> Google XYZ Formula: [X] by [Y] by [Z]</span>
+        <span class="feature-pill"><i class="fa-solid fa-shield-halved" style="color:#22c55e;"></i> Guaranteed 90%+ ATS Score</span>
+        <span class="feature-pill"><i class="fa-solid fa-file-pdf" style="color:#ef4444;"></i> Client-Side PDF Upload</span>
+      </div>
+    </section>
+
+    <!-- Settings Bar -->
+    <div class="settings-bar">
+      <div class="settings-group">
+        <label for="sample-jd-select" style="font-size:0.85rem; font-weight:600;"><i class="fa-solid fa-folder-open"></i> Preset JD:</label>
+        <select id="sample-jd-select" class="select-control">
+          <option value="data_analyst">Senior Data Analytics Engineer (SQL, Looker, Snowflake)</option>
+          <option value="ai_engineer">Senior AI & Python Backend Engineer (FastAPI, Docker, Microservices)</option>
+          <option value="fullstack">Full Stack Cloud Engineer (React, Node, Python, AWS)</option>
+        </select>
+      </div>
+
+      <div class="settings-group">
+        <label for="target-score-slider" style="font-size:0.85rem; font-weight:600;"><i class="fa-solid fa-bullseye"></i> Target ATS Score: <span id="target-score-val" style="color:var(--primary); font-weight:700;">90%</span></label>
+        <input type="range" id="target-score-slider" min="85" max="98" value="90" step="1" oninput="document.getElementById('target-score-val').innerText = this.value + '%'" />
+      </div>
+
+      <div class="settings-group">
+        <label for="api-key-input" style="font-size:0.85rem; font-weight:600;" title="Optional: Enter key for live Gemini 3.1 Pro AI calls. If blank, built-in offline engine runs."><i class="fa-solid fa-key"></i> Gemini API Key (Optional):</label>
+        <input type="password" id="api-key-input" class="text-control" placeholder="AIzaSy... (runs offline if empty)" style="width: 220px;" />
+      </div>
+    </div>
+
+    <!-- Inputs Dual Grid -->
+    <div class="app-grid">
+      
+      <!-- Card 1: Job Description -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title"><i class="fa-solid fa-briefcase" style="color:var(--primary);"></i> Target Job Description</span>
+          <span style="font-size:0.8rem; color:var(--text-muted);">Paste or choose preset above</span>
+        </div>
+        <textarea id="jd-input" class="input-area" placeholder="Paste the job description or role qualifications here..."></textarea>
+      </div>
+
+      <!-- Card 2: Resume Input -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title"><i class="fa-solid fa-file-lines" style="color:#10b981;"></i> Candidate Resume</span>
+          <span style="font-size:0.8rem; color:var(--text-muted);">Upload PDF or paste text</span>
+        </div>
+        
+        <!-- Drag & Drop Zone -->
+        <div class="file-dropzone" id="dropzone">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <p id="dropzone-text"><b>Drop your Resume PDF here</b>, or click to browse</p>
+          <input type="file" id="file-input" class="hidden-file-input" accept=".pdf,.txt,.md" />
+        </div>
+
+        <textarea id="resume-input" class="input-area" placeholder="Or paste your existing resume text here..." style="height: 145px;"></textarea>
+      </div>
+
+    </div>
+
+    <!-- Optimize CTA Button -->
+    <div class="action-row">
+      <button id="optimize-btn" class="btn btn-primary btn-lg">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Optimize Resume for 90%+ ATS Match
+      </button>
+    </div>
+
+    <!-- Results Section (Dynamic) -->
+    <section class="results-section" id="results-section">
+      
+      <!-- Scorecard Banner -->
+      <div class="scorecard-banner">
+        
+        <!-- Radial Score Circle -->
+        <div class="score-circle-container">
+          <div class="score-circle" id="score-circle" style="--score-pct: 90;">
+            <div class="score-circle-inner">
+              <span class="score-val" id="score-val">90%</span>
+              <span class="score-label">ATS MATCH</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Score Details -->
+        <div class="score-details">
+          <h2>ATS Keyword Optimization Scorecard</h2>
+          <div>
+            <span class="badge-status pass" id="badge-status"><i class="fa-solid fa-check-circle"></i> PASSED 90%+ ATS TARGET</span>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-num" id="stat-init">32%</div>
+              <div class="stat-lbl">Initial Match</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num" id="stat-post">52%</div>
+              <div class="stat-lbl">Post-XYZ Bullets</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num" id="stat-final" style="color:var(--success);">90%</div>
+              <div class="stat-lbl">Final Optimized</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+          <button id="btn-print" class="btn btn-success" style="font-size:0.9rem;">
+            <i class="fa-solid fa-print"></i> Print to PDF
+          </button>
+          <button id="btn-download-md" class="btn btn-secondary" style="font-size:0.85rem;">
+            <i class="fa-brands fa-markdown"></i> Download .md
+          </button>
+          <button id="btn-download-html" class="btn btn-secondary" style="font-size:0.85rem;">
+            <i class="fa-solid fa-code"></i> Download .html
+          </button>
+          <button id="btn-download-json" class="btn btn-secondary" style="font-size:0.85rem;">
+            <i class="fa-solid fa-file-code"></i> Audit JSON
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="tab-bullets">
+          <i class="fa-solid fa-list-check"></i> Google XYZ Bullets
+        </button>
+        <button class="tab-btn" data-tab="tab-keywords">
+          <i class="fa-solid fa-tags"></i> Keywords & Competencies
+        </button>
+        <button class="tab-btn" data-tab="tab-preview">
+          <i class="fa-solid fa-file-lines"></i> Formatted Resume Preview
+        </button>
+      </div>
+
+      <!-- TAB 1: XYZ Bullets -->
+      <div class="tab-content active" id="tab-bullets">
+        <div style="background:var(--bg-surface); padding:1rem 1.25rem; border:1px solid var(--border-color); border-radius:var(--radius-sm); margin-bottom:1.5rem;">
+          <h3 style="font-size:1.1rem; margin-bottom:0.25rem;">Google XYZ Resume Formula</h3>
+          <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:0.5rem;">
+            <b>"Accomplished [X] as measured by [Y], by doing [Z]"</b> — Active outcome + quantifiable benchmark + technical implementation.
+          </p>
+          <div>
+            <span class="badge-x">[X] Accomplished</span>
+            <span class="badge-y">[Y] Measured by</span>
+            <span class="badge-z">[Z] By doing</span>
+          </div>
+        </div>
+        <div id="bullets-container"></div>
+      </div>
+
+      <!-- TAB 2: Keywords & Matrix -->
+      <div class="tab-content" id="tab-keywords">
+        <div class="app-grid" style="margin-bottom:1.5rem;">
+          <div class="card">
+            <h3 style="font-size:1rem; margin-bottom:0.6rem; color:var(--success);">
+              <i class="fa-solid fa-circle-check"></i> Matched Keywords
+            </h3>
+            <div class="chips-container" id="chips-matched"></div>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size:1rem; margin-bottom:0.6rem; color:var(--danger);">
+              <i class="fa-solid fa-triangle-exclamation"></i> Initial Missing Keywords
+            </h3>
+            <div class="chips-container" id="chips-missing"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="font-size:1.1rem; margin-bottom:0.75rem;">
+            <i class="fa-solid fa-cubes"></i> Core Technical Skills Matrix
+          </h3>
+          <div id="matrix-container"></div>
+        </div>
+      </div>
+
+      <!-- TAB 3: Resume Preview Paper -->
+      <div class="tab-content" id="tab-preview">
+        <div style="text-align:right; margin-bottom:1rem;">
+          <button onclick="window.print()" class="btn btn-primary" style="font-size:0.85rem;">
+            <i class="fa-solid fa-print"></i> Print to PDF (ATS Single Column)
+          </button>
+        </div>
+        <div class="resume-paper" id="resume-paper">
+          <!-- Dynamically filled -->
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      ATS Resume Optimizer &bull; Powered by Google Antigravity & Gemini 3.1 Pro &bull; Google XYZ Formula
+    </p>
+  </footer>
+
+  <!-- App Logic -->
+  <script src="ats_app.js"></script>
+</body>
+</html>
