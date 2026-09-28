@@ -593,26 +593,29 @@ function renderResumePaper(report, originalText) {
       </div>
 
       <div class="resume-section-title">Professional Summary</div>
-      <p style="text-align:left; text-transform:none; white-space:normal; line-height:1.6; color:#374151;">${formattedSummary}</p>
-    <ul style="list-style:none; padding-left:0;">
-      ${skillsHtml}
-    </ul>
+      <p style="text-align:left; text-transform:none; white-space:normal; line-height:1.45; color:#374151; margin-bottom:10px;">${formattedSummary}</p>
 
-    <div class="resume-section-title">Professional Experience</div>
-    <div style="display:flex; justify-content:space-between; font-weight:700; font-size:13.5px; margin-bottom:2px;">
-      <span>Technical Specialist / Software & Data Engineer</span>
-      <span>2022 — Present</span>
+      <div class="resume-section-title">Core Technical Competencies</div>
+      <ul style="list-style:none; padding-left:0; margin-bottom:10px;">
+        ${skillsHtml}
+      </ul>
+
+      <div class="resume-section-title">Professional Experience</div>
+      <div style="display:flex; justify-content:space-between; font-weight:700; font-size:13.5px; margin-bottom:2px;">
+        <span>Technical Specialist / Software &amp; Data Engineer</span>
+        <span>2022 — Present</span>
+      </div>
+      <div style="font-size:12.5px; color:#64748b; font-style:italic; margin-bottom:6px;">Enterprise Technology Solutions</div>
+      <ul style="margin-bottom:10px;">
+        ${bulletsHtml}
+      </ul>
+
+      <div class="resume-section-title">Education &amp; Credentials</div>
+      <ul style="list-style:none; padding-left:0; margin-bottom:0;">
+        <li><strong>Bachelor of Technology (B.Tech) in Computer Science &amp; Engineering</strong></li>
+        <li><strong>Relevant Coursework:</strong> Distributed Systems, Database Management Systems, Algorithms, Cloud Architecture</li>
+      </ul>
     </div>
-    <div style="font-size:12.5px; color:#64748b; font-style:italic; margin-bottom:8px;">Enterprise Technology Solutions</div>
-    <ul>
-      ${bulletsHtml}
-    </ul>
-
-    <div class="resume-section-title">Education & Credentials</div>
-    <ul style="list-style:none; padding-left:0;">
-      <li><strong>Bachelor of Technology (B.Tech) in Computer Science & Engineering</strong></li>
-      <li><strong>Relevant Coursework:</strong> Distributed Systems, Database Management Systems, Algorithms, Cloud Architecture</li>
-    </ul>
   `;
 }
 
