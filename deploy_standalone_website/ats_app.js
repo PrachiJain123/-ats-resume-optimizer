@@ -433,13 +433,9 @@ async function runOptimization() {
 
     const finalMatched = jdData.keywords.filter(jk => combinedKeywords.has(jk.toLowerCase()));
 
-    // Tailored Summary
+    // Tailored Summary (Paragraph of exactly 5 lines)
     const topSkills = finalMatched.slice(0, 5).join(", ");
-    const summary = `Results-driven Data Analytics & Systems Specialist with 2+ years of hands-on expertise in ${topSkills} and end-to-end data automation.
-Proven track record of designing scalable SQL schemas, building production ETL/ELT pipelines, and deploying interactive real-time executive dashboards.
-Experienced across enterprise workflow platforms, optimizing query execution speed, conducting rigorous A/B statistical testing, and automating operational reporting.
-Skilled in applying the Google XYZ framework to quantify engineering impact, eliminate data processing bottlenecks, and deliver actionable strategic intelligence.
-Dedicated to maintaining high data integrity, standardizing organizational metadata, and architecting reliable distributed cloud solutions aligned with enterprise benchmarks.`;
+    const summary = `Results-driven Data Analytics Specialist with 2+ years of hands-on experience in ${topSkills} and end-to-end data automation pipelines. Proven track record of designing scalable SQL schemas, building production ETL/ELT workflows, and deploying interactive executive dashboards in Looker and Power BI. Experienced in optimizing complex query performance, automating reporting routines, and conducting rigorous statistical evaluations to deliver actionable business intelligence. Skilled in applying the Google XYZ framework to quantify engineering impact, eliminate processing bottlenecks, and enhance operational reliability. Dedicated to maintaining high data integrity, standardizing metadata, and architecting reliable distributed cloud solutions aligned with enterprise benchmarks.`;
 
     currentReport = {
       initialScore: initialMatch.score,
@@ -578,7 +574,7 @@ function renderResumePaper(report, originalText) {
   const locationAndContact = "Hyderabad, India | +91-6266761271 | prachijain6699@gmail.com";
   const linksLine = `LinkedIn: <a href="https://linkedin.com/in/prachi-jain6584" target="_blank" rel="noopener noreferrer">linkedin.com/in/prachi-jain6584</a> &bull; GitHub: <a href="https://github.com/PrachiJain123" target="_blank" rel="noopener noreferrer">github.com/PrachiJain123</a> &bull; Portfolio: <a href="https://prachijain123.github.io/" target="_blank" rel="noopener noreferrer">https://prachijain123.github.io/</a>`;
   const immediateJoiner = "Immediate Joiner";
-  const formattedSummary = report.summary.split("\n").map(s => s.trim()).filter(Boolean).join("<br>");
+  const formattedSummary = report.summary.replace(/\r?\n+/g, " ").trim();
 
   const page2ExpHtml = page2Bullets.length > 0 ? `
     <div class="resume-section-title">Professional Experience (Continued)</div>
@@ -599,7 +595,7 @@ function renderResumePaper(report, originalText) {
       </div>
 
       <div class="resume-section-title">Professional Summary</div>
-      <p style="text-align:left; text-transform:none; white-space:normal; line-height:1.38; color:#374151; margin-bottom:8px;">${formattedSummary}</p>
+      <p style="text-align:justify; text-justify:inter-word; text-transform:none; white-space:normal; line-height:1.4; color:#374151; margin-bottom:8px;">${formattedSummary}</p>
 
       <div class="resume-section-title">Core Technical Competencies</div>
       <ul style="list-style:none; padding-left:0; margin-bottom:8px;">
