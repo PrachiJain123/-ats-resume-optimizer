@@ -4,33 +4,33 @@
 
 // Comprehensive Technical Taxonomy
 const TECH_TAXONOMY = {
- &bull; "Languages": [
- &bull;  &bull; "python", "sql", "java", "c++", "c#", "c", "golang", "go", "typescript",
- &bull;  &bull; "javascript", "r", "scala", "rust", "ruby", "bash", "shell", "powershell"
- &bull; ],
- &bull; "Frameworks & Libraries": [
- &bull;  &bull; "pandas", "numpy", "scipy", "scikit-learn", "sklearn", "tensorflow", "pytorch",
- &bull;  &bull; "fastapi", "flask", "django", "react", "next.js", "node.js", "langchain", "transformers"
- &bull; ],
- &bull; "Cloud & DevOps": [
- &bull;  &bull; "aws", "amazon web services", "gcp", "google cloud", "azure", "docker", "kubernetes",
- &bull;  &bull; "k8s", "terraform", "ci/cd", "github actions", "gitlab ci", "jenkins", "cloud run", "lambda", "s3"
- &bull; ],
- &bull; "Databases & Big Data": [
- &bull;  &bull; "postgresql", "mysql", "mongodb", "redis", "snowflake", "bigquery", "databricks",
- &bull;  &bull; "apache spark", "spark", "apache kafka", "kafka", "apache airflow", "airflow", "dbt", "etl", "elt"
- &bull; ],
- &bull; "Architecture & Methodologies": [
- &bull;  &bull; "microservices", "restful apis", "rest apis", "rest api", "rest", "graphql",
- &bull;  &bull; "distributed systems", "system design", "agile", "scrum", "tdd"
- &bull; ],
- &bull; "Analytics & Tools": [
- &bull;  &bull; "looker", "tableau", "power bi", "excel", "a/b testing", "metabase", "llms", "rag"
- &bull; ]
+  "Languages": [
+    "python", "sql", "java", "c++", "c#", "c", "golang", "go", "typescript",
+    "javascript", "r", "scala", "rust", "ruby", "bash", "shell", "powershell"
+  ],
+  "Frameworks & Libraries": [
+    "pandas", "numpy", "scipy", "scikit-learn", "sklearn", "tensorflow", "pytorch",
+    "fastapi", "flask", "django", "react", "next.js", "node.js", "langchain", "transformers"
+  ],
+  "Cloud & DevOps": [
+    "aws", "amazon web services", "gcp", "google cloud", "azure", "docker", "kubernetes",
+    "k8s", "terraform", "ci/cd", "github actions", "gitlab ci", "jenkins", "cloud run", "lambda", "s3"
+  ],
+  "Databases & Big Data": [
+    "postgresql", "mysql", "mongodb", "redis", "snowflake", "bigquery", "databricks",
+    "apache spark", "spark", "apache kafka", "kafka", "apache airflow", "airflow", "dbt", "etl", "elt"
+  ],
+  "Architecture & Methodologies": [
+    "microservices", "restful apis", "rest apis", "rest api", "rest", "graphql",
+    "distributed systems", "system design", "agile", "scrum", "tdd"
+  ],
+  "Analytics & Tools": [
+    "looker", "tableau", "power bi", "excel", "a/b testing", "metabase", "llms", "rag"
+  ]
 };
 
 const SAMPLE_JDS = {
- &bull; "data_analyst": `Role: Senior Data Analytics Engineer
+  "data_analyst": `Role: Senior Data Analytics Engineer
 Company: Enterprise Cloud Tech
 Location: Remote / Hybrid
 
@@ -48,7 +48,7 @@ Qualifications:
 - Experience with cloud platforms: GCP (BigQuery, Cloud Run) or AWS (S3, Lambda).
 - Familiarity with Apache Airflow, dbt, Docker, Git, CI/CD, and RESTful APIs.`,
 
- &bull; "ai_engineer": `Role: Senior AI & Python Backend Engineer
+  "ai_engineer": `Role: Senior AI & Python Backend Engineer
 Company: Apex Intelligent Systems
 
 Responsibilities:
@@ -64,7 +64,7 @@ Requirements:
 - Hands-on experience with Docker, Kubernetes, AWS (EC2, S3, CloudWatch), and CI/CD.
 - Production experience with PostgreSQL, Redis, and Microservices.`,
 
- &bull; "fullstack": `Role: Full Stack Cloud Software Engineer
+  "fullstack": `Role: Full Stack Cloud Software Engineer
 Company: Nova Web Technologies
 
 Responsibilities:
@@ -107,574 +107,572 @@ let currentReport = null;
 let currentResumeText = "";
 
 document.addEventListener("DOMContentLoaded", () => {
- &bull; setupTheme();
- &bull; setupEventListeners();
- &bull; loadDefaultData();
+  setupTheme();
+  setupEventListeners();
+  loadDefaultData();
 });
 
 function setupTheme() {
- &bull; const toggleBtn = document.getElementById("theme-toggle");
- &bull; const savedTheme = localStorage.getItem("theme") || "light";
- &bull; document.documentElement.setAttribute("data-theme", savedTheme);
- &bull; updateThemeIcon(savedTheme);
+  const toggleBtn = document.getElementById("theme-toggle");
+  const savedTheme = localStorage.getItem("theme") || "light";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+  updateThemeIcon(savedTheme);
 
- &bull; toggleBtn.addEventListener("click", () => {
- &bull;  &bull; const current = document.documentElement.getAttribute("data-theme");
- &bull;  &bull; const next = current === "dark" ? "light" : "dark";
- &bull;  &bull; document.documentElement.setAttribute("data-theme", next);
- &bull;  &bull; localStorage.setItem("theme", next);
- &bull;  &bull; updateThemeIcon(next);
- &bull; });
+  toggleBtn.addEventListener("click", () => {
+    const current = document.documentElement.getAttribute("data-theme");
+    const next = current === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+    updateThemeIcon(next);
+  });
 }
 
 function updateThemeIcon(theme) {
- &bull; const icon = document.querySelector("#theme-toggle i");
- &bull; if (icon) {
- &bull;  &bull; icon.className = theme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
- &bull; }
+  const icon = document.querySelector("#theme-toggle i");
+  if (icon) {
+    icon.className = theme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+  }
 }
 
 function loadDefaultData() {
- &bull; document.getElementById("jd-input").value = SAMPLE_JDS["data_analyst"];
- &bull; document.getElementById("resume-input").value = SAMPLE_RESUME_DEFAULT;
- &bull; const savedKey = localStorage.getItem("gemini_api_key");
- &bull; if (savedKey) {
- &bull;  &bull; document.getElementById("api-key-input").value = savedKey;
- &bull; }
+  document.getElementById("jd-input").value = SAMPLE_JDS["data_analyst"];
+  document.getElementById("resume-input").value = SAMPLE_RESUME_DEFAULT;
+  const savedKey = localStorage.getItem("gemini_api_key");
+  if (savedKey) {
+    document.getElementById("api-key-input").value = savedKey;
+  }
 }
 
 function setupEventListeners() {
- &bull; // Preset selector
- &bull; document.getElementById("sample-jd-select").addEventListener("change", (e) => {
- &bull;  &bull; if (SAMPLE_JDS[e.target.value]) {
- &bull;  &bull;  &bull; document.getElementById("jd-input").value = SAMPLE_JDS[e.target.value];
- &bull;  &bull; }
- &bull; });
+  // Preset selector
+  document.getElementById("sample-jd-select").addEventListener("change", (e) => {
+    if (SAMPLE_JDS[e.target.value]) {
+      document.getElementById("jd-input").value = SAMPLE_JDS[e.target.value];
+    }
+  });
 
- &bull; // Save API key
- &bull; document.getElementById("api-key-input").addEventListener("change", (e) => {
- &bull;  &bull; localStorage.setItem("gemini_api_key", e.target.value.trim());
- &bull; });
+  // Save API key
+  document.getElementById("api-key-input").addEventListener("change", (e) => {
+    localStorage.setItem("gemini_api_key", e.target.value.trim());
+  });
 
- &bull; // Tab switching
- &bull; document.querySelectorAll(".tab-btn").forEach(btn => {
- &bull;  &bull; btn.addEventListener("click", () => {
- &bull;  &bull;  &bull; document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
- &bull;  &bull;  &bull; document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
- &bull;  &bull;  &bull; btn.classList.add("active");
- &bull;  &bull;  &bull; const targetId = btn.getAttribute("data-tab");
- &bull;  &bull;  &bull; document.getElementById(targetId).classList.add("active");
- &bull;  &bull; });
- &bull; });
+  // Tab switching
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+      btn.classList.add("active");
+      const targetId = btn.getAttribute("data-tab");
+      document.getElementById(targetId).classList.add("active");
+    });
+  });
 
- &bull; // File dropzone
- &bull; const dropzone = document.getElementById("dropzone");
- &bull; const fileInput = document.getElementById("file-input");
+  // File dropzone
+  const dropzone = document.getElementById("dropzone");
+  const fileInput = document.getElementById("file-input");
 
- &bull; dropzone.addEventListener("click", () => fileInput.click());
- &bull; dropzone.addEventListener("dragover", (e) => {
- &bull;  &bull; e.preventDefault();
- &bull;  &bull; dropzone.classList.add("dragover");
- &bull; });
- &bull; dropzone.addEventListener("dragleave", () => dropzone.classList.remove("dragover"));
- &bull; dropzone.addEventListener("drop", async (e) => {
- &bull;  &bull; e.preventDefault();
- &bull;  &bull; dropzone.classList.remove("dragover");
- &bull;  &bull; if (e.dataTransfer.files.length) {
- &bull;  &bull;  &bull; handleFileUpload(e.dataTransfer.files[0]);
- &bull;  &bull; }
- &bull; });
- &bull; fileInput.addEventListener("change", (e) => {
- &bull;  &bull; if (e.target.files.length) {
- &bull;  &bull;  &bull; handleFileUpload(e.target.files[0]);
- &bull;  &bull; }
- &bull; });
+  dropzone.addEventListener("click", () => fileInput.click());
+  dropzone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropzone.classList.add("dragover");
+  });
+  dropzone.addEventListener("dragleave", () => dropzone.classList.remove("dragover"));
+  dropzone.addEventListener("drop", async (e) => {
+    e.preventDefault();
+    dropzone.classList.remove("dragover");
+    if (e.dataTransfer.files.length) {
+      handleFileUpload(e.dataTransfer.files[0]);
+    }
+  });
+  fileInput.addEventListener("change", (e) => {
+    if (e.target.files.length) {
+      handleFileUpload(e.target.files[0]);
+    }
+  });
 
- &bull; // Main Optimize Action
- &bull; document.getElementById("optimize-btn").addEventListener("click", runOptimization);
+  // Main Optimize Action
+  document.getElementById("optimize-btn").addEventListener("click", runOptimization);
 
- &bull; // Exporters
- &bull; document.getElementById("btn-print").addEventListener("click", () => window.print());
- &bull; document.getElementById("btn-download-md").addEventListener("click", downloadMarkdown);
- &bull; document.getElementById("btn-download-html").addEventListener("click", downloadHtml);
- &bull; document.getElementById("btn-download-json").addEventListener("click", downloadJson);
+  // Exporters
+  document.getElementById("btn-print").addEventListener("click", () => window.print());
+  document.getElementById("btn-download-md").addEventListener("click", downloadMarkdown);
+  document.getElementById("btn-download-html").addEventListener("click", downloadHtml);
+  document.getElementById("btn-download-json").addEventListener("click", downloadJson);
 }
 
 async function handleFileUpload(file) {
- &bull; if (file.type === "application/pdf" || file.name.endsWith(".pdf")) {
- &bull;  &bull; document.getElementById("dropzone-text").innerText = `Reading "${file.name}"...`;
- &bull;  &bull; try {
- &bull;  &bull;  &bull; const arrayBuffer = await file.arrayBuffer();
- &bull;  &bull;  &bull; const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
- &bull;  &bull;  &bull; let text = "";
- &bull;  &bull;  &bull; for (let i = 1; i <= pdf.numPages; i++) {
- &bull;  &bull;  &bull;  &bull; const page = await pdf.getPage(i);
- &bull;  &bull;  &bull;  &bull; const content = await page.getTextContent();
- &bull;  &bull;  &bull;  &bull; text += content.items.map(item => item.str).join(" ") + "\n\n";
- &bull;  &bull;  &bull; }
- &bull;  &bull;  &bull; document.getElementById("resume-input").value = text.trim();
- &bull;  &bull;  &bull; document.getElementById("dropzone-text").innerHTML = `<b>${file.name}</b> loaded successfully!`;
- &bull;  &bull; } catch (err) {
- &bull;  &bull;  &bull; alert("Error parsing PDF. Please paste text directly. (" + err.message + ")");
- &bull;  &bull;  &bull; document.getElementById("dropzone-text").innerText = "Drop your resume PDF here or click to browse";
- &bull;  &bull; }
- &bull; } else {
- &bull;  &bull; const text = await file.text();
- &bull;  &bull; document.getElementById("resume-input").value = text.trim();
- &bull;  &bull; document.getElementById("dropzone-text").innerText = `${file.name} loaded.`;
- &bull; }
+  if (file.type === "application/pdf" || file.name.endsWith(".pdf")) {
+    document.getElementById("dropzone-text").innerText = `Reading "${file.name}"...`;
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      let text = "";
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        text += content.items.map(item => item.str).join(" ") + "\n\n";
+      }
+      document.getElementById("resume-input").value = text.trim();
+      document.getElementById("dropzone-text").innerHTML = `<b>${file.name}</b> loaded successfully!`;
+    } catch (err) {
+      alert("Error parsing PDF. Please paste text directly. (" + err.message + ")");
+      document.getElementById("dropzone-text").innerText = "Drop your resume PDF here or click to browse";
+    }
+  } else {
+    const text = await file.text();
+    document.getElementById("resume-input").value = text.trim();
+    document.getElementById("dropzone-text").innerText = `${file.name} loaded.`;
+  }
 }
 
 // Canonical keyword name helper
 function canonicalName(term) {
- &bull; const map = {
- &bull;  &bull; "react.js": "React", "reactjs": "React", "postgres": "PostgreSQL",
- &bull;  &bull; "postgresql": "PostgreSQL", "amazon web services": "AWS",
- &bull;  &bull; "google cloud": "GCP", "microsoft azure": "Azure", "k8s": "Kubernetes",
- &bull;  &bull; "scikit-learn": "Scikit-Learn", "sklearn": "Scikit-Learn",
- &bull;  &bull; "golang": "Go", "restful apis": "RESTful APIs", "rest apis": "RESTful APIs",
- &bull;  &bull; "rest api": "RESTful APIs", "rest": "REST APIs", "ci/cd": "CI/CD",
- &bull;  &bull; "mysql": "MySQL", "spark": "Spark", "apache spark": "Spark",
- &bull;  &bull; "kafka": "Kafka", "apache kafka": "Kafka", "airflow": "Airflow",
- &bull;  &bull; "apache airflow": "Airflow", "tdd": "TDD", "dbt": "dbt", "elt": "ELT", "etl": "ETL"
- &bull; };
- &bull; const low = term.toLowerCase().trim();
- &bull; if (map[low]) return map[low];
- &bull; return term.length <= 4 ? term.toUpperCase() : term.charAt(0).toUpperCase() + term.slice(1);
+  const map = {
+    "react.js": "React", "reactjs": "React", "postgres": "PostgreSQL",
+    "postgresql": "PostgreSQL", "amazon web services": "AWS",
+    "google cloud": "GCP", "microsoft azure": "Azure", "k8s": "Kubernetes",
+    "scikit-learn": "Scikit-Learn", "sklearn": "Scikit-Learn",
+    "golang": "Go", "restful apis": "RESTful APIs", "rest apis": "RESTful APIs",
+    "rest api": "RESTful APIs", "rest": "REST APIs", "ci/cd": "CI/CD",
+    "mysql": "MySQL", "spark": "Spark", "apache spark": "Spark",
+    "kafka": "Kafka", "apache kafka": "Kafka", "airflow": "Airflow",
+    "apache airflow": "Airflow", "tdd": "TDD", "dbt": "dbt", "elt": "ELT", "etl": "ETL"
+  };
+  const low = term.toLowerCase().trim();
+  if (map[low]) return map[low];
+  return term.length <= 4 ? term.toUpperCase() : term.charAt(0).toUpperCase() + term.slice(1);
 }
 
 // Keyword Extractor (Heuristic & Deterministic)
 function extractKeywords(text) {
- &bull; const textLower = " " + text.toLowerCase() + " ";
- &bull; const found = new Set();
- &bull; const categoryMap = {};
+  const textLower = " " + text.toLowerCase() + " ";
+  const found = new Set();
+  const categoryMap = {};
 
- &bull; for (const [cat, terms] of Object.entries(TECH_TAXONOMY)) {
- &bull;  &bull; categoryMap[cat] = [];
- &bull;  &bull; for (const term of terms) {
- &bull;  &bull;  &bull; const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
- &bull;  &bull;  &bull; const regex = new RegExp(`(?<![a-zA-Z0-9_])${escaped}(?![a-zA-Z0-9_])`, 'gi');
- &bull;  &bull;  &bull; if (regex.test(textLower)) {
- &bull;  &bull;  &bull;  &bull; const canon = canonicalName(term);
- &bull;  &bull;  &bull;  &bull; found.add(canon);
- &bull;  &bull;  &bull;  &bull; categoryMap[cat].push(canon);
- &bull;  &bull;  &bull; }
- &bull;  &bull; }
- &bull; }
- &bull; return {
- &bull;  &bull; keywords: Array.from(found).sort(),
- &bull;  &bull; categories: categoryMap
- &bull; };
+  for (const [cat, terms] of Object.entries(TECH_TAXONOMY)) {
+    categoryMap[cat] = [];
+    for (const term of terms) {
+      const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`(?<![a-zA-Z0-9_])${escaped}(?![a-zA-Z0-9_])`, 'gi');
+      if (regex.test(textLower)) {
+        const canon = canonicalName(term);
+        found.add(canon);
+        categoryMap[cat].push(canon);
+      }
+    }
+  }
+  return {
+    keywords: Array.from(found).sort(),
+    categories: categoryMap
+  };
 }
 
 // ATS Weighted Scoring
 function calculateAtsScore(jdKeywords, resumeKeywords) {
- &bull; const resSet = new Set(resumeKeywords.map(k => k.toLowerCase()));
- &bull; let totalWeight = 0;
- &bull; let matchedWeight = 0;
- &bull; const matched = [];
- &bull; const missing = [];
+  const resSet = new Set(resumeKeywords.map(k => k.toLowerCase()));
+  let totalWeight = 0;
+  let matchedWeight = 0;
+  const matched = [];
+  const missing = [];
 
- &bull; for (const kw of jdKeywords) {
- &bull;  &bull; const weight = 1.5;
- &bull;  &bull; totalWeight += weight;
- &bull;  &bull; if (resSet.has(kw.toLowerCase())) {
- &bull;  &bull;  &bull; matched.push(kw);
- &bull;  &bull;  &bull; matchedWeight += weight;
- &bull;  &bull; } else {
- &bull;  &bull;  &bull; missing.push(kw);
- &bull;  &bull; }
- &bull; }
+  for (const kw of jdKeywords) {
+    const weight = 1.5;
+    totalWeight += weight;
+    if (resSet.has(kw.toLowerCase())) {
+      matched.push(kw);
+      matchedWeight += weight;
+    } else {
+      missing.push(kw);
+    }
+  }
 
- &bull; const score = totalWeight > 0 ? (matchedWeight / totalWeight) * 100 : 100;
- &bull; return {
- &bull;  &bull; score: Math.min(100, Math.round(score * 10) / 10),
- &bull;  &bull; matched,
- &bull;  &bull; missing
- &bull; };
+  const score = totalWeight > 0 ? (matchedWeight / totalWeight) * 100 : 100;
+  return {
+    score: Math.min(100, Math.round(score * 10) / 10),
+    matched,
+    missing
+  };
 }
 
 // Google XYZ Formula Bullet Rewriter
 function rewriteBulletXYZ(original, targetKeywords) {
- &bull; const lower = original.toLowerCase();
- &bull; let x = "", y = "", z = "", rewritten = "", infused = [];
+  const lower = original.toLowerCase();
+  let x = "", y = "", z = "", rewritten = "", infused = [];
 
- &bull; const pickKw = (pool, prefs) => {
- &bull;  &bull; const chosen = [];
- &bull;  &bull; for (const p of prefs) {
- &bull;  &bull;  &bull; const idx = pool.findIndex(k => k.toLowerCase() === p.toLowerCase());
- &bull;  &bull;  &bull; if (idx !== -1) {
- &bull;  &bull;  &bull;  &bull; chosen.push(pool.splice(idx, 1)[0]);
- &bull;  &bull;  &bull;  &bull; if (chosen.length >= 2) break;
- &bull;  &bull;  &bull; }
- &bull;  &bull; }
- &bull;  &bull; return chosen;
- &bull; };
+  const pickKw = (pool, prefs) => {
+    const chosen = [];
+    for (const p of prefs) {
+      const idx = pool.findIndex(k => k.toLowerCase() === p.toLowerCase());
+      if (idx !== -1) {
+        chosen.push(pool.splice(idx, 1)[0]);
+        if (chosen.length >= 2) break;
+      }
+    }
+    return chosen;
+  };
 
- &bull; if (lower.includes("dashboard") || lower.includes("looker") || lower.includes("tableau") || lower.includes("bi")) {
- &bull;  &bull; infused = pickKw(targetKeywords, ["Looker", "Tableau", "SQL", "ETL"]);
- &bull;  &bull; const techStr = infused.length ? infused.join(" and ") : "SQL and Looker";
- &bull;  &bull; x = "Accelerated executive decision-making turnaround";
- &bull;  &bull; y = "38% reduction in recurring reporting latency (saving 15+ engineering hours weekly)";
- &bull;  &bull; z = `architecting automated ${techStr} pipelines with interactive KPI filters`;
- &bull;  &bull; rewritten = `Accelerated executive decision-making turnaround, as measured by a 38% reduction in recurring reporting latency (saving 15+ engineering hours weekly), by architecting automated ${techStr} pipelines with interactive KPI filters.`;
- &bull; } else if (lower.includes("sql") || lower.includes("query") || lower.includes("database") || lower.includes("pipeline")) {
- &bull;  &bull; infused = pickKw(targetKeywords, ["Snowflake", "SQL", "MySQL", "PostgreSQL", "ETL"]);
- &bull;  &bull; const techStr = infused.length ? infused.join(", ") : "Snowflake and SQL";
- &bull;  &bull; x = "Optimized core database throughput and batch query efficiency";
- &bull;  &bull; y = "45% reduction in execution runtime across 2.5M+ records";
- &bull;  &bull; z = `refactoring legacy ingestion routines and deploying modular ${techStr} schemas`;
- &bull;  &bull; rewritten = `Optimized core database throughput and batch query efficiency, as measured by a 45% reduction in execution runtime across 2.5M+ records, by refactoring legacy ingestion routines and deploying modular ${techStr} schemas.`;
- &bull; } else if (lower.includes("python") || lower.includes("script") || lower.includes("api") || lower.includes("service")) {
- &bull;  &bull; infused = pickKw(targetKeywords, ["RESTful APIs", "Microservices", "Docker", "CI/CD"]);
- &bull;  &bull; const techStr = infused.length ? infused.join(" and ") : "RESTful APIs and Docker";
- &bull;  &bull; x = "Scaled high-concurrency backend services";
- &bull;  &bull; y = "handling 5,000+ requests/sec with a 99.95% uptime SLA";
- &bull;  &bull; z = `developing decoupled ${techStr} with automated CI/CD deployment pipelines`;
- &bull;  &bull; rewritten = `Scaled high-concurrency backend services, as measured by handling 5,000+ requests/sec with a 99.95% uptime SLA, by developing decoupled ${techStr} with automated CI/CD deployment pipelines.`;
- &bull; } else {
- &bull;  &bull; infused = pickKw(targetKeywords, ["Agile", "CI/CD", "Git", "TDD"]);
- &bull;  &bull; const techStr = infused.length ? ` utilizing ${infused.join(", ")}` : " using test-driven development";
- &bull;  &bull; x = "Streamlined technical delivery and operational workflow reliability";
- &bull;  &bull; y = "32% increase in deployment velocity and zero production regressions";
- &bull;  &bull; z = `modernizing codebase architecture${techStr} and standardizing documentation`;
- &bull;  &bull; rewritten = `Streamlined technical delivery and operational workflow reliability, as measured by a 32% increase in deployment velocity and zero production regressions, by modernizing codebase architecture${techStr} and standardizing documentation.`;
- &bull; }
+  if (lower.includes("dashboard") || lower.includes("looker") || lower.includes("tableau") || lower.includes("bi")) {
+    infused = pickKw(targetKeywords, ["Looker", "Tableau", "SQL", "ETL"]);
+    const techStr = infused.length ? infused.join(" and ") : "SQL and Looker";
+    x = "Accelerated executive decision-making turnaround";
+    y = "38% reduction in recurring reporting latency (saving 15+ engineering hours weekly)";
+    z = `architecting automated ${techStr} pipelines with interactive KPI filters`;
+    rewritten = `Accelerated executive decision-making turnaround, as measured by a 38% reduction in recurring reporting latency (saving 15+ engineering hours weekly), by architecting automated ${techStr} pipelines with interactive KPI filters.`;
+  } else if (lower.includes("sql") || lower.includes("query") || lower.includes("database") || lower.includes("pipeline")) {
+    infused = pickKw(targetKeywords, ["Snowflake", "SQL", "MySQL", "PostgreSQL", "ETL"]);
+    const techStr = infused.length ? infused.join(", ") : "Snowflake and SQL";
+    x = "Optimized core database throughput and batch query efficiency";
+    y = "45% reduction in execution runtime across 2.5M+ records";
+    z = `refactoring legacy ingestion routines and deploying modular ${techStr} schemas`;
+    rewritten = `Optimized core database throughput and batch query efficiency, as measured by a 45% reduction in execution runtime across 2.5M+ records, by refactoring legacy ingestion routines and deploying modular ${techStr} schemas.`;
+  } else if (lower.includes("python") || lower.includes("script") || lower.includes("api") || lower.includes("service")) {
+    infused = pickKw(targetKeywords, ["RESTful APIs", "Microservices", "Docker", "CI/CD"]);
+    const techStr = infused.length ? infused.join(" and ") : "RESTful APIs and Docker";
+    x = "Scaled high-concurrency backend services";
+    y = "handling 5,000+ requests/sec with a 99.95% uptime SLA";
+    z = `developing decoupled ${techStr} with automated CI/CD deployment pipelines`;
+    rewritten = `Scaled high-concurrency backend services, as measured by handling 5,000+ requests/sec with a 99.95% uptime SLA, by developing decoupled ${techStr} with automated CI/CD deployment pipelines.`;
+  } else {
+    infused = pickKw(targetKeywords, ["Agile", "CI/CD", "Git", "TDD"]);
+    const techStr = infused.length ? ` utilizing ${infused.join(", ")}` : " using test-driven development";
+    x = "Streamlined technical delivery and operational workflow reliability";
+    y = "32% increase in deployment velocity and zero production regressions";
+    z = `modernizing codebase architecture${techStr} and standardizing documentation`;
+    rewritten = `Streamlined technical delivery and operational workflow reliability, as measured by a 32% increase in deployment velocity and zero production regressions, by modernizing codebase architecture${techStr} and standardizing documentation.`;
+  }
 
- &bull; return { original: original.trim(), rewritten, x, y, z, infused };
+  return { original: original.trim(), rewritten, x, y, z, infused };
 }
 
 // Section Matrix Classifier
 function classifySkill(kw, matrix) {
- &bull; const low = kw.toLowerCase();
- &bull; let cat = "Tools & Analytical Platforms";
- &bull; if (/aws|gcp|azure|docker|kubernetes|k8s|ci\/cd|terraform|cloud run|lambda|s3|jenkins/.test(low)) {
- &bull;  &bull; cat = "Cloud, Infrastructure & DevOps";
- &bull; } else if (/postgres|mysql|snowflake|bigquery|redis|mongodb|kafka|spark|airflow|etl|elt|dbt/.test(low)) {
- &bull;  &bull; cat = "Databases & Data Pipelines";
- &bull; } else if (/microservice|rest|graphql|distributed|agile|scrum|tdd|system design/.test(low)) {
- &bull;  &bull; cat = "Architecture & Methodologies";
- &bull; } else if (/pandas|numpy|react|fastapi|flask|django|pytorch|tensorflow|scikit/.test(low)) {
- &bull;  &bull; cat = "Frameworks & Developer Libraries";
- &bull; } else if (/python|sql|java|c\+\+|c#|golang|r|typescript|javascript|bash/.test(low)) {
- &bull;  &bull; cat = "Core Languages & Querying";
- &bull; }
- &bull; if (!matrix[cat]) matrix[cat] = [];
- &bull; if (!matrix[cat].includes(kw)) matrix[cat].push(kw);
+  const low = kw.toLowerCase();
+  let cat = "Tools & Analytical Platforms";
+  if (/aws|gcp|azure|docker|kubernetes|k8s|ci\/cd|terraform|cloud run|lambda|s3|jenkins/.test(low)) {
+    cat = "Cloud, Infrastructure & DevOps";
+  } else if (/postgres|mysql|snowflake|bigquery|redis|mongodb|kafka|spark|airflow|etl|elt|dbt/.test(low)) {
+    cat = "Databases & Data Pipelines";
+  } else if (/microservice|rest|graphql|distributed|agile|scrum|tdd|system design/.test(low)) {
+    cat = "Architecture & Methodologies";
+  } else if (/pandas|numpy|react|fastapi|flask|django|pytorch|tensorflow|scikit/.test(low)) {
+    cat = "Frameworks & Developer Libraries";
+  } else if (/python|sql|java|c\+\+|c#|golang|r|typescript|javascript|bash/.test(low)) {
+    cat = "Core Languages & Querying";
+  }
+  if (!matrix[cat]) matrix[cat] = [];
+  if (!matrix[cat].includes(kw)) matrix[cat].push(kw);
 }
 
 // Full Optimization Pipeline
 async function runOptimization() {
- &bull; const jdText = document.getElementById("jd-input").value.trim();
- &bull; const resumeText = document.getElementById("resume-input").value.trim();
- &bull; const targetThreshold = parseFloat(document.getElementById("target-score-slider").value) || 90.0;
- &bull; const apiKey = document.getElementById("api-key-input").value.trim();
+  const jdText = document.getElementById("jd-input").value.trim();
+  const resumeText = document.getElementById("resume-input").value.trim();
+  const targetThreshold = parseFloat(document.getElementById("target-score-slider").value) || 90.0;
+  const apiKey = document.getElementById("api-key-input").value.trim();
 
- &bull; if (!jdText || !resumeText) {
- &bull;  &bull; alert("Please provide both a Job Description and a Resume to optimize.");
- &bull;  &bull; return;
- &bull; }
+  if (!jdText || !resumeText) {
+    alert("Please provide both a Job Description and a Resume to optimize.");
+    return;
+  }
 
- &bull; currentResumeText = resumeText;
- &bull; const optimizeBtn = document.getElementById("optimize-btn");
- &bull; const origBtnText = optimizeBtn.innerHTML;
- &bull; optimizeBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Optimizing with Gemini & Google XYZ...';
- &bull; optimizeBtn.disabled = true;
+  currentResumeText = resumeText;
+  const optimizeBtn = document.getElementById("optimize-btn");
+  const origBtnText = optimizeBtn.innerHTML;
+  optimizeBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Optimizing with Gemini & Google XYZ...';
+  optimizeBtn.disabled = true;
 
- &bull; try {
- &bull;  &bull; // 1. Keyword Extraction
- &bull;  &bull; const jdData = extractKeywords(jdText);
- &bull;  &bull; const resData = extractKeywords(resumeText);
- &bull;  &bull; const initialMatch = calculateAtsScore(jdData.keywords, resData.keywords);
+  try {
+    // 1. Keyword Extraction
+    const jdData = extractKeywords(jdText);
+    const resData = extractKeywords(resumeText);
+    const initialMatch = calculateAtsScore(jdData.keywords, resData.keywords);
 
- &bull;  &bull; // 2. Extract Experience Bullets
- &bull;  &bull; const rawBullets = extractBullets(resumeText);
+    // 2. Extract Experience Bullets
+    const rawBullets = extractBullets(resumeText);
 
- &bull;  &bull; // 3. Rewrite Bullets into Google XYZ formula
- &bull;  &bull; const targetPool = [...initialMatch.missing];
- &bull;  &bull; const rewrittenBullets = rawBullets.map(b => rewriteBulletXYZ(b, targetPool));
+    // 3. Rewrite Bullets into Google XYZ formula
+    const targetPool = [...initialMatch.missing];
+    const rewrittenBullets = rawBullets.map(b => rewriteBulletXYZ(b, targetPool));
 
- &bull;  &bull; // 4. Calculate Post-Rewrite Match
- &bull;  &bull; const combinedKeywords = new Set(resData.keywords.map(k => k.toLowerCase()));
- &bull;  &bull; for (const b of rewrittenBullets) {
- &bull;  &bull;  &bull; for (const inf of b.infused) combinedKeywords.add(inf.toLowerCase());
- &bull;  &bull; }
- &bull;  &bull; const currentMatched = jdData.keywords.filter(jk => combinedKeywords.has(jk.toLowerCase()));
- &bull;  &bull; const postRewriteMatch = calculateAtsScore(jdData.keywords, currentMatched);
+    // 4. Calculate Post-Rewrite Match
+    const combinedKeywords = new Set(resData.keywords.map(k => k.toLowerCase()));
+    for (const b of rewrittenBullets) {
+      for (const inf of b.infused) combinedKeywords.add(inf.toLowerCase());
+    }
+    const currentMatched = jdData.keywords.filter(jk => combinedKeywords.has(jk.toLowerCase()));
+    const postRewriteMatch = calculateAtsScore(jdData.keywords, currentMatched);
 
- &bull;  &bull; // 5. 90%+ ATS Optimization Boost Loop
- &bull;  &bull; let finalScore = postRewriteMatch.score;
- &bull;  &bull; const remainingMissing = [...postRewriteMatch.missing];
- &bull;  &bull; const matrix = {
- &bull;  &bull;  &bull; "Core Languages & Querying": [],
- &bull;  &bull;  &bull; "Frameworks & Developer Libraries": [],
- &bull;  &bull;  &bull; "Cloud, Infrastructure & DevOps": [],
- &bull;  &bull;  &bull; "Databases & Data Pipelines": [],
- &bull;  &bull;  &bull; "Architecture & Methodologies": [],
- &bull;  &bull;  &bull; "Tools & Analytical Platforms": []
- &bull;  &bull; };
+    // 5. 90%+ ATS Optimization Boost Loop
+    let finalScore = postRewriteMatch.score;
+    const remainingMissing = [...postRewriteMatch.missing];
+    const matrix = {
+      "Core Languages & Querying": [],
+      "Frameworks & Developer Libraries": [],
+      "Cloud, Infrastructure & DevOps": [],
+      "Databases & Data Pipelines": [],
+      "Architecture & Methodologies": [],
+      "Tools & Analytical Platforms": []
+    };
 
- &bull;  &bull; // Seed matrix with matched
- &bull;  &bull; for (const m of currentMatched) classifySkill(m, matrix);
+    // Seed matrix with matched
+    for (const m of currentMatched) classifySkill(m, matrix);
 
- &bull;  &bull; let iterations = 1;
- &bull;  &bull; const boostAdded = [];
- &bull;  &bull; while (finalScore < targetThreshold && remainingMissing.length > 0) {
- &bull;  &bull;  &bull; iterations++;
- &bull;  &bull;  &bull; const nextKw = remainingMissing.shift();
- &bull;  &bull;  &bull; combinedKeywords.add(nextKw.toLowerCase());
- &bull;  &bull;  &bull; classifySkill(nextKw, matrix);
- &bull;  &bull;  &bull; boostAdded.push(nextKw);
+    let iterations = 1;
+    const boostAdded = [];
+    while (finalScore < targetThreshold && remainingMissing.length > 0) {
+      iterations++;
+      const nextKw = remainingMissing.shift();
+      combinedKeywords.add(nextKw.toLowerCase());
+      classifySkill(nextKw, matrix);
+      boostAdded.push(nextKw);
 
- &bull;  &bull;  &bull; const recalcMatched = jdData.keywords.filter(jk => combinedKeywords.has(jk.toLowerCase()));
- &bull;  &bull;  &bull; const recalc = calculateAtsScore(jdData.keywords, recalcMatched);
- &bull;  &bull;  &bull; finalScore = recalc.score;
- &bull;  &bull; }
+      const recalcMatched = jdData.keywords.filter(jk => combinedKeywords.has(jk.toLowerCase()));
+      const recalc = calculateAtsScore(jdData.keywords, recalcMatched);
+      finalScore = recalc.score;
+    }
 
- &bull;  &bull; const finalMatched = jdData.keywords.filter(jk => combinedKeywords.has(jk.toLowerCase()));
+    const finalMatched = jdData.keywords.filter(jk => combinedKeywords.has(jk.toLowerCase()));
 
- &bull;  &bull; // Tailored Summary
- &bull;  &bull; const topSkills = finalMatched.slice(0, 5).join(", ");
- &bull;  &bull; const summary = `Results-driven Data Analytics & Systems Specialist with 2+ years of hands-on expertise in ${topSkills} and end-to-end data automation.
+    // Tailored Summary
+    const topSkills = finalMatched.slice(0, 5).join(", ");
+    const summary = `Results-driven Data Analytics & Systems Specialist with 2+ years of hands-on expertise in ${topSkills} and end-to-end data automation.
 Proven track record of designing scalable SQL schemas, building production ETL/ELT pipelines, and deploying interactive real-time executive dashboards.
 Experienced across enterprise workflow platforms, optimizing query execution speed, conducting rigorous A/B statistical testing, and automating operational reporting.
 Skilled in applying the Google XYZ framework to quantify engineering impact, eliminate data processing bottlenecks, and deliver actionable strategic intelligence.
 Dedicated to maintaining high data integrity, standardizing organizational metadata, and architecting reliable distributed cloud solutions aligned with enterprise benchmarks.`;
 
- &bull;  &bull; currentReport = {
- &bull;  &bull;  &bull; initialScore: initialMatch.score,
- &bull;  &bull;  &bull; postRewriteScore: postRewriteMatch.score,
- &bull;  &bull;  &bull; finalScore: finalScore,
- &bull;  &bull;  &bull; passed90: finalScore >= targetThreshold,
- &bull;  &bull;  &bull; iterations: iterations,
- &bull;  &bull;  &bull; jdKeywords: jdData.keywords,
- &bull;  &bull;  &bull; initialMatched: initialMatch.matched,
- &bull;  &bull;  &bull; initialMissing: initialMatch.missing,
- &bull;  &bull;  &bull; finalMatched: finalMatched,
- &bull;  &bull;  &bull; boostAdded: boostAdded,
- &bull;  &bull;  &bull; bullets: rewrittenBullets,
- &bull;  &bull;  &bull; matrix: matrix,
- &bull;  &bull;  &bull; summary: summary
- &bull;  &bull; };
+    currentReport = {
+      initialScore: initialMatch.score,
+      postRewriteScore: postRewriteMatch.score,
+      finalScore: finalScore,
+      passed90: finalScore >= targetThreshold,
+      iterations: iterations,
+      jdKeywords: jdData.keywords,
+      initialMatched: initialMatch.matched,
+      initialMissing: initialMatch.missing,
+      finalMatched: finalMatched,
+      boostAdded: boostAdded,
+      bullets: rewrittenBullets,
+      matrix: matrix,
+      summary: summary
+    };
 
- &bull;  &bull; renderResults(currentReport, resumeText);
- &bull; } catch (err) {
- &bull;  &bull; alert("Optimization error: " + err.message);
- &bull; } finally {
- &bull;  &bull; optimizeBtn.innerHTML = origBtnText;
- &bull;  &bull; optimizeBtn.disabled = false;
- &bull; }
+    renderResults(currentReport, resumeText);
+  } catch (err) {
+    alert("Optimization error: " + err.message);
+  } finally {
+    optimizeBtn.innerHTML = origBtnText;
+    optimizeBtn.disabled = false;
+  }
 }
 
 function extractBullets(text) {
- &bull; const lines = text.split("\n");
- &bull; const bullets = [];
- &bull; for (const line of lines) {
- &bull;  &bull; const trimmed = line.trim();
- &bull;  &bull; if (!trimmed) continue;
- &bull;  &bull; if (/^[-*•–—]\s+|^\d+[\.)]\s+/.test(trimmed)) {
- &bull;  &bull;  &bull; const clean = trimmed.replace(/^[-*•–—]\s+|^\d+[\.)]\s+/, "");
- &bull;  &bull;  &bull; if (clean.length > 25) bullets.push(clean);
- &bull;  &bull; } else if (/^(developed|designed|built|engineered|spearheaded|optimized|implemented|automated|led|created|managed|analyzed)\b/i.test(trimmed) && trimmed.length > 30) {
- &bull;  &bull;  &bull; bullets.push(trimmed);
- &bull;  &bull; }
- &bull; }
- &bull; return bullets.length ? bullets.slice(0, 8) : [
- &bull;  &bull; "Developed Python scripts to automate data processing and reporting workflows.",
- &bull;  &bull; "Built and maintained interactive dashboards in Looker to monitor KPIs and business metrics.",
- &bull;  &bull; "Managed database schemas and optimized SQL queries to reduce execution latency."
- &bull; ];
+  const lines = text.split("\n");
+  const bullets = [];
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+    if (/^[-*•–—]\s+|^\d+[\.)]\s+/.test(trimmed)) {
+      const clean = trimmed.replace(/^[-*•–—]\s+|^\d+[\.)]\s+/, "");
+      if (clean.length > 25) bullets.push(clean);
+    } else if (/^(developed|designed|built|engineered|spearheaded|optimized|implemented|automated|led|created|managed|analyzed)\b/i.test(trimmed) && trimmed.length > 30) {
+      bullets.push(trimmed);
+    }
+  }
+  return bullets.length ? bullets.slice(0, 8) : [
+    "Developed Python scripts to automate data processing and reporting workflows.",
+    "Built and maintained interactive dashboards in Looker to monitor KPIs and business metrics.",
+    "Managed database schemas and optimized SQL queries to reduce execution latency."
+  ];
 }
 
 function renderResults(report, originalText) {
- &bull; const resultsSec = document.getElementById("results-section");
- &bull; resultsSec.classList.add("active");
+  const resultsSec = document.getElementById("results-section");
+  resultsSec.classList.add("active");
 
- &bull; // Score Circle & Stats
- &bull; const circle = document.getElementById("score-circle");
- &bull; circle.style.setProperty("--score-pct", report.finalScore);
- &bull; document.getElementById("score-val").innerText = `${report.finalScore.toFixed(0)}%`;
+  // Score Circle & Stats
+  const circle = document.getElementById("score-circle");
+  circle.style.setProperty("--score-pct", report.finalScore);
+  document.getElementById("score-val").innerText = `${report.finalScore.toFixed(0)}%`;
 
- &bull; const badgeStatus = document.getElementById("badge-status");
- &bull; if (report.passed90) {
- &bull;  &bull; badgeStatus.className = "badge-status pass";
- &bull;  &bull; badgeStatus.innerHTML = '<i class="fa-solid fa-check-circle"></i> PASSED 90%+ ATS TARGET';
- &bull; } else {
- &bull;  &bull; badgeStatus.className = "badge-status boosted";
- &bull;  &bull; badgeStatus.innerHTML = `<i class="fa-solid fa-bolt"></i> OPTIMIZED TO ${report.finalScore}%`;
- &bull; }
+  const badgeStatus = document.getElementById("badge-status");
+  if (report.passed90) {
+    badgeStatus.className = "badge-status pass";
+    badgeStatus.innerHTML = '<i class="fa-solid fa-check-circle"></i> PASSED 90%+ ATS TARGET';
+  } else {
+    badgeStatus.className = "badge-status boosted";
+    badgeStatus.innerHTML = `<i class="fa-solid fa-bolt"></i> OPTIMIZED TO ${report.finalScore}%`;
+  }
 
- &bull; document.getElementById("stat-init").innerText = `${report.initialScore.toFixed(0)}%`;
- &bull; document.getElementById("stat-post").innerText = `${report.postRewriteScore.toFixed(0)}%`;
- &bull; document.getElementById("stat-final").innerText = `${report.finalScore.toFixed(0)}%`;
+  document.getElementById("stat-init").innerText = `${report.initialScore.toFixed(0)}%`;
+  document.getElementById("stat-post").innerText = `${report.postRewriteScore.toFixed(0)}%`;
+  document.getElementById("stat-final").innerText = `${report.finalScore.toFixed(0)}%`;
 
- &bull; // Render Bullets Tab
- &bull; const bulletContainer = document.getElementById("bullets-container");
- &bull; bulletContainer.innerHTML = "";
- &bull; report.bullets.forEach((b, i) => {
- &bull;  &bull; const card = document.createElement("div");
- &bull;  &bull; card.className = "bullet-card";
- &bull;  &bull; const infusedHtml = b.infused.length
- &bull;  &bull;  &bull; ? `<div style="margin-top:6px;"><small style="color:var(--text-muted);font-weight:600;">Infused Keywords:</small> ${b.infused.map(k => `<span class="chip chip-matched">+${k}</span>`).join(" ")}</div>`
- &bull;  &bull;  &bull; : "";
+  // Render Bullets Tab
+  const bulletContainer = document.getElementById("bullets-container");
+  bulletContainer.innerHTML = "";
+  report.bullets.forEach((b, i) => {
+    const card = document.createElement("div");
+    card.className = "bullet-card";
+    const infusedHtml = b.infused.length
+      ? `<div style="margin-top:6px;"><small style="color:var(--text-muted);font-weight:600;">Infused Keywords:</small> ${b.infused.map(k => `<span class="chip chip-matched">+${k}</span>`).join(" ")}</div>`
+      : "";
 
- &bull;  &bull; card.innerHTML = `
- &bull;  &bull;  &bull; <div class="bullet-orig"><b>Bullet #${i + 1} Original:</b> "${b.original}"</div>
- &bull;  &bull;  &bull; <div class="bullet-xyz">✨ ${b.rewritten}</div>
- &bull;  &bull;  &bull; <div class="xyz-breakdown">
- &bull;  &bull;  &bull;  &bull; <div><span class="badge-x">[X] Accomplished</span> <span style="font-size:0.85rem;">${b.x}</span></div>
- &bull;  &bull;  &bull;  &bull; <div><span class="badge-y">[Y] Measured by</span> <span style="font-size:0.85rem;">${b.y}</span></div>
- &bull;  &bull;  &bull;  &bull; <div><span class="badge-z">[Z] By doing</span> <span style="font-size:0.85rem;">${b.z}</span></div>
- &bull;  &bull;  &bull; </div>
- &bull;  &bull;  &bull; ${infusedHtml}
- &bull;  &bull; `;
- &bull;  &bull; bulletContainer.appendChild(card);
- &bull; });
+    card.innerHTML = `
+      <div class="bullet-orig"><b>Bullet #${i + 1} Original:</b> "${b.original}"</div>
+      <div class="bullet-xyz">✨ ${b.rewritten}</div>
+      <div class="xyz-breakdown">
+        <div><span class="badge-x">[X] Accomplished</span> <span style="font-size:0.85rem;">${b.x}</span></div>
+        <div><span class="badge-y">[Y] Measured by</span> <span style="font-size:0.85rem;">${b.y}</span></div>
+        <div><span class="badge-z">[Z] By doing</span> <span style="font-size:0.85rem;">${b.z}</span></div>
+      </div>
+      ${infusedHtml}
+    `;
+    bulletContainer.appendChild(card);
+  });
 
- &bull; // Render Keywords Tab
- &bull; const matchedChips = document.getElementById("chips-matched");
- &bull; matchedChips.innerHTML = report.finalMatched.map(k => `<span class="chip chip-matched"><i class="fa-solid fa-check"></i> ${k}</span>`).join("");
+  // Render Keywords Tab
+  const matchedChips = document.getElementById("chips-matched");
+  matchedChips.innerHTML = report.finalMatched.map(k => `<span class="chip chip-matched"><i class="fa-solid fa-check"></i> ${k}</span>`).join("");
 
- &bull; const missingChips = document.getElementById("chips-missing");
- &bull; missingChips.innerHTML = report.initialMissing.length
- &bull;  &bull; ? report.initialMissing.map(k => `<span class="chip chip-missing">${k}</span>`).join("")
- &bull;  &bull; : '<span style="color:var(--success);font-size:0.9rem;">None! Perfect coverage.</span>';
+  const missingChips = document.getElementById("chips-missing");
+  missingChips.innerHTML = report.initialMissing.length
+    ? report.initialMissing.map(k => `<span class="chip chip-missing">${k}</span>`).join("")
+    : '<span style="color:var(--success);font-size:0.9rem;">None! Perfect coverage.</span>';
 
- &bull; const matrixContainer = document.getElementById("matrix-container");
- &bull; matrixContainer.innerHTML = "";
- &bull; for (const [cat, items] of Object.entries(report.matrix)) {
- &bull;  &bull; if (items.length) {
- &bull;  &bull;  &bull; matrixContainer.innerHTML += `
- &bull;  &bull;  &bull;  &bull; <div style="margin-bottom:0.75rem;">
- &bull;  &bull;  &bull;  &bull;  &bull; <strong style="color:var(--primary);font-size:0.9rem;">${cat}:</strong>
- &bull;  &bull;  &bull;  &bull;  &bull; <div style="margin-top:3px;">${items.map(s => `<span class="chip chip-boosted">${s}</span>`).join(" ")}</div>
- &bull;  &bull;  &bull;  &bull; </div>
- &bull;  &bull;  &bull; `;
- &bull;  &bull; }
- &bull; }
+  const matrixContainer = document.getElementById("matrix-container");
+  matrixContainer.innerHTML = "";
+  for (const [cat, items] of Object.entries(report.matrix)) {
+    if (items.length) {
+      matrixContainer.innerHTML += `
+        <div style="margin-bottom:0.75rem;">
+          <strong style="color:var(--primary);font-size:0.9rem;">${cat}:</strong>
+          <div style="margin-top:3px;">${items.map(s => `<span class="chip chip-boosted">${s}</span>`).join(" ")}</div>
+        </div>
+      `;
+    }
+  }
 
- &bull; // Render Resume Paper
- &bull; renderResumePaper(report, originalText);
+  // Render Resume Paper
+  renderResumePaper(report, originalText);
 
- &bull; // Scroll to results
- &bull; resultsSec.scrollIntoView({ behavior: "smooth" });
+  // Scroll to results
+  resultsSec.scrollIntoView({ behavior: "smooth" });
 }
 
 function renderResumePaper(report, originalText) {
- &bull; const lines = originalText.split("\n").map(l => l.trim()).filter(Boolean);
- &bull; const name = "P R A C H I &bull;  J A I N";
- &bull; const locationAndContact = "Hyderabad, India | +91-6266761271 | prachijain6699@gmail.com";
- &bull; const linksLine = `LinkedIn: <a href="https://linkedin.com/in/prachi-jain6584" target="_blank" rel="noopener noreferrer">linkedin.com/in/prachi-jain6584</a> &bull; GitHub: <a href="https://github.com/PrachiJain123" target="_blank" rel="noopener noreferrer">github.com/PrachiJain123</a> &bull; Portfolio: <a href="https://prachijain123.github.io/" target="_blank" rel="noopener noreferrer">https://prachijain123.github.io/</a>`;
- &bull; const immediateJoiner = "Immediate Joiner";
+  const lines = originalText.split("\n").map(l => l.trim()).filter(Boolean);
+  const name = lines[0] || "PRAGMATIC CANDIDATE";
+  const contact = lines.length > 1 ? lines[1] : "candidate@email.com | (555) 019-2834 | linkedin.com/in/candidate";
 
- &bull; let skillsHtml = "";
- &bull; for (const [cat, items] of Object.entries(report.matrix)) {
- &bull;  &bull; if (items.length) {
- &bull;  &bull;  &bull; skillsHtml += `<li><strong>${cat}:</strong> ${items.join(", ")}</li>`;
- &bull;  &bull; }
- &bull; }
+  let skillsHtml = "";
+  for (const [cat, items] of Object.entries(report.matrix)) {
+    if (items.length) {
+      skillsHtml += `<li><strong>${cat}:</strong> ${items.join(", ")}</li>`;
+    }
+  }
 
- &bull; let bulletsHtml = "";
- &bull; for (const b of report.bullets) {
- &bull;  &bull; bulletsHtml += `<li>${b.rewritten}</li>`;
- &bull; }
+  let bulletsHtml = "";
+  for (const b of report.bullets) {
+    bulletsHtml += `<li>${b.rewritten}</li>`;
+  }
 
- &bull; const formattedSummary = report.summary.split("\n").map(s => s.trim()).filter(Boolean).join("<br>");
+  const locationAndContact = "Hyderabad, India | +91-6266761271 | prachijain6699@gmail.com";
+  const linksLine = `LinkedIn: <a href="https://linkedin.com/in/prachi-jain6584" target="_blank" rel="noopener noreferrer">linkedin.com/in/prachi-jain6584</a> &bull; GitHub: <a href="https://github.com/PrachiJain123" target="_blank" rel="noopener noreferrer">github.com/PrachiJain123</a> &bull; Portfolio: <a href="https://prachijain123.github.io/" target="_blank" rel="noopener noreferrer">https://prachijain123.github.io/</a>`;
+  const immediateJoiner = "Immediate Joiner";
+  const formattedSummary = report.summary.split("\n").map(s => s.trim()).filter(Boolean).join("<br>");
 
- &bull; const paper = document.getElementById("resume-paper");
- &bull; paper.innerHTML = `
- &bull;  &bull; <div class="pdf-preview-container">
- &bull;  &bull;  &bull; <div class="resume-header">
- &bull;  &bull;  &bull;  &bull; <div class="resume-name">${name}</div>
- &bull;  &bull;  &bull;  &bull; <div class="resume-contact-line">${locationAndContact}</div>
- &bull;  &bull;  &bull;  &bull; <div class="resume-contact-links">${linksLine}</div>
- &bull;  &bull;  &bull;  &bull; <div class="resume-immediate-joiner">${immediateJoiner}</div>
- &bull;  &bull;  &bull; </div>
+  const paper = document.getElementById("resume-paper");
+  paper.innerHTML = `
+    <div class="pdf-preview-container">
+      <div class="resume-header">
+        <div class="resume-name">P R A C H I   J A I N</div>
+        <div class="resume-contact-line">${locationAndContact}</div>
+        <div class="resume-contact-links">${linksLine}</div>
+        <div class="resume-immediate-joiner">${immediateJoiner}</div>
+      </div>
 
- &bull;  &bull;  &bull; <div class="resume-section-title">Professional Summary</div>
- &bull;  &bull;  &bull; <p style="text-align:left; text-transform:none; white-space:normal; line-height:1.6; color:#374151;">${formattedSummary}</p>
+      <div class="resume-section-title">Professional Summary</div>
+      <p style="text-align:left; text-transform:none; white-space:normal; line-height:1.6; color:#374151;">${formattedSummary}</p>
+    <ul style="list-style:none; padding-left:0;">
+      ${skillsHtml}
+    </ul>
 
- &bull;  &bull;  &bull; <div class="resume-section-title">Core Technical Competencies</div>
- &bull;  &bull;  &bull; <ul style="list-style:none; padding-left:0;">
- &bull;  &bull;  &bull;  &bull; ${skillsHtml}
- &bull;  &bull;  &bull; </ul>
+    <div class="resume-section-title">Professional Experience</div>
+    <div style="display:flex; justify-content:space-between; font-weight:700; font-size:13.5px; margin-bottom:2px;">
+      <span>Technical Specialist / Software & Data Engineer</span>
+      <span>2022 — Present</span>
+    </div>
+    <div style="font-size:12.5px; color:#64748b; font-style:italic; margin-bottom:8px;">Enterprise Technology Solutions</div>
+    <ul>
+      ${bulletsHtml}
+    </ul>
 
- &bull;  &bull;  &bull; <div class="resume-section-title">Professional Experience</div>
- &bull;  &bull;  &bull; <div style="display:flex; justify-content:space-between; font-weight:700; font-size:13.5px; margin-bottom:2px;">
- &bull;  &bull;  &bull;  &bull; <span>Technical Specialist / Software &amp; Data Engineer</span>
- &bull;  &bull;  &bull;  &bull; <span>2022 — Present</span>
- &bull;  &bull;  &bull; </div>
- &bull;  &bull;  &bull; <div style="font-size:12.5px; color:#64748b; font-style:italic; margin-bottom:8px;">Enterprise Technology Solutions</div>
- &bull;  &bull;  &bull; <ul>
- &bull;  &bull;  &bull;  &bull; ${bulletsHtml}
- &bull;  &bull;  &bull; </ul>
-
- &bull;  &bull;  &bull; <div class="resume-section-title">Education &amp; Credentials</div>
- &bull;  &bull;  &bull; <ul style="list-style:none; padding-left:0;">
- &bull;  &bull;  &bull;  &bull; <li><strong>Bachelor of Technology (B.Tech) in Computer Science &amp; Engineering</strong></li>
- &bull;  &bull;  &bull;  &bull; <li><strong>Relevant Coursework:</strong> Distributed Systems, Database Management Systems, Algorithms, Cloud Architecture</li>
- &bull;  &bull;  &bull; </ul>
- &bull;  &bull; </div>
- &bull; `;
+    <div class="resume-section-title">Education & Credentials</div>
+    <ul style="list-style:none; padding-left:0;">
+      <li><strong>Bachelor of Technology (B.Tech) in Computer Science & Engineering</strong></li>
+      <li><strong>Relevant Coursework:</strong> Distributed Systems, Database Management Systems, Algorithms, Cloud Architecture</li>
+    </ul>
+  `;
 }
 
 // Download Handlers
 function downloadMarkdown() {
- &bull; if (!currentReport) return;
- &bull; const paper = document.getElementById("resume-paper");
- &bull; const name = paper.querySelector(".resume-name")?.innerText || "CANDIDATE";
- &bull; const contact = paper.querySelector(".resume-contact")?.innerText || "";
+  if (!currentReport) return;
+  const paper = document.getElementById("resume-paper");
+  const name = paper.querySelector(".resume-name")?.innerText || "CANDIDATE";
+  const contact = paper.querySelector(".resume-contact")?.innerText || "";
 
- &bull; let md = `# ${name}\n**${contact}**\n\n---\n\n## PROFESSIONAL SUMMARY\n${currentReport.summary}\n\n## CORE TECHNICAL SKILLS\n`;
- &bull; for (const [cat, items] of Object.entries(currentReport.matrix)) {
- &bull;  &bull; if (items.length) md += `- **${cat}:** ${items.join(", ")}\n`;
- &bull; }
- &bull; md += `\n## PROFESSIONAL EXPERIENCE\n### Technical Specialist / Software & Data Engineer\n*Enterprise Technology Solutions | 2022 – Present*\n\n`;
- &bull; for (const b of currentReport.bullets) {
- &bull;  &bull; md += `- ${b.rewritten}\n`;
- &bull; }
- &bull; md += `\n## EDUCATION & CREDENTIALS\n- **Bachelor of Technology (B.Tech) in Computer Science & Engineering**\n`;
+  let md = `# ${name}\n**${contact}**\n\n---\n\n## PROFESSIONAL SUMMARY\n${currentReport.summary}\n\n## CORE TECHNICAL SKILLS\n`;
+  for (const [cat, items] of Object.entries(currentReport.matrix)) {
+    if (items.length) md += `- **${cat}:** ${items.join(", ")}\n`;
+  }
+  md += `\n## PROFESSIONAL EXPERIENCE\n### Technical Specialist / Software & Data Engineer\n*Enterprise Technology Solutions | 2022 – Present*\n\n`;
+  for (const b of currentReport.bullets) {
+    md += `- ${b.rewritten}\n`;
+  }
+  md += `\n## EDUCATION & CREDENTIALS\n- **Bachelor of Technology (B.Tech) in Computer Science & Engineering**\n`;
 
- &bull; saveBlob(md, "resume_optimized.md", "text/markdown");
+  saveBlob(md, "resume_optimized.md", "text/markdown");
 }
 
 function downloadHtml() {
- &bull; const paper = document.getElementById("resume-paper");
- &bull; if (!paper) return;
- &bull; const htmlDoc = `<!DOCTYPE html>
+  const paper = document.getElementById("resume-paper");
+  if (!paper) return;
+  const htmlDoc = `<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ATS Optimized Resume</title>
 <style>
- &bull; body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.5; color: #111; padding: 40px; max-width: 800px; margin: 0 auto; }
- &bull; .resume-header { text-align: center; border-bottom: 2px solid #2563eb; padding-bottom: 10px; margin-bottom: 20px; }
- &bull; .resume-name { font-size: 24px; font-weight: bold; letter-spacing: 1px; }
- &bull; .resume-contact { font-size: 13px; color: #555; }
- &bull; .resume-section-title { font-size: 14px; font-weight: bold; text-transform: uppercase; color: #1e3a8a; border-bottom: 1px solid #ccc; padding-bottom: 3px; margin: 15px 0 8px 0; }
- &bull; ul { padding-left: 20px; }
- &bull; li { margin-bottom: 6px; font-size: 13px; }
- &bull; p { font-size: 13px; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.5; color: #111; padding: 40px; max-width: 800px; margin: 0 auto; }
+  .resume-header { text-align: center; border-bottom: 2px solid #2563eb; padding-bottom: 10px; margin-bottom: 20px; }
+  .resume-name { font-size: 24px; font-weight: bold; letter-spacing: 1px; }
+  .resume-contact { font-size: 13px; color: #555; }
+  .resume-section-title { font-size: 14px; font-weight: bold; text-transform: uppercase; color: #1e3a8a; border-bottom: 1px solid #ccc; padding-bottom: 3px; margin: 15px 0 8px 0; }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 6px; font-size: 13px; }
+  p { font-size: 13px; }
 </style>
 </head>
 <body>
 ${paper.innerHTML}
 </body>
 </html>`;
- &bull; saveBlob(htmlDoc, "resume_optimized.html", "text/html");
+  saveBlob(htmlDoc, "resume_optimized.html", "text/html");
 }
 
 function downloadJson() {
- &bull; if (!currentReport) return;
- &bull; saveBlob(JSON.stringify(currentReport, null, 2), "ats_audit_report.json", "application/json");
+  if (!currentReport) return;
+  saveBlob(JSON.stringify(currentReport, null, 2), "ats_audit_report.json", "application/json");
 }
 
 function saveBlob(content, filename, type) {
- &bull; const blob = new Blob([content], { type });
- &bull; const url = URL.createObjectURL(blob);
- &bull; const a = document.createElement("a");
- &bull; a.href = url;
- &bull; a.download = filename;
- &bull; a.click();
- &bull; URL.revokeObjectURL(url);
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
 }
